@@ -1,5 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
-/build
-/test
+/target
 .idea/workspace.xml
 .idea/tasks.xml
