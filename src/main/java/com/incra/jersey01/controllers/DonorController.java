@@ -1,4 +1,7 @@
-package com.incra;
+package com.incra.jersey01.controllers;
+
+import com.incra.jersey01.models.Charity;
+import com.incra.jersey01.models.Donor;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -6,10 +9,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Root resource (exposed at "charity" path)
+ * Root resource (exposed at "donor" path)
  */
-@Path("charity")
-public class Charity {
+@Path("donor")
+public class DonorController {
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -21,6 +24,8 @@ public class Charity {
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
 
-        return "Charity: Red Cross";
+        Donor donor = new Donor("John", "Smith");
+
+        return "Donor: John Smith";
     }
 }

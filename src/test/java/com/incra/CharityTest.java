@@ -1,5 +1,6 @@
 package com.incra;
 
+import com.incra.jersey01.Main;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.Before;
@@ -43,6 +44,6 @@ public class CharityTest {
     @Test
     public void testGetIt() {
         String responseMsg = target.path("charity").request().get(String.class);
-        assertEquals("Charity: Red Cross", responseMsg);
+        assertEquals("CharityController: Red Cross", responseMsg);
     }
 }
