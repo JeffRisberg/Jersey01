@@ -10,6 +10,7 @@
     <name>Jersey01</name>
 
     <properties>
+        <guava.version>18.0</guava.version>
         <guice.version>4.0</guice.version>
         <jersey.version>2.26</jersey.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,6 +29,17 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.glassfish.hk2/guice-bridge -->
+        <dependency>
+            <groupId>org.glassfish.hk2</groupId>
+            <artifactId>guice-bridge</artifactId>
+            <version>2.5.0-b59</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
@@ -43,7 +55,11 @@
             <artifactId>jersey-hk2</artifactId>
             <version>2.26</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.squarespace.jersey2-guice</groupId>
+            <artifactId>jersey2-guice-impl</artifactId>
+            <version>1.0.6</version>
+        </dependency>
 
         <!-- uncomment this to get JSON support:
          <dependency>

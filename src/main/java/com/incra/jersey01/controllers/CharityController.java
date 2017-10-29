@@ -32,7 +32,7 @@ public class CharityController {
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
 
-        Charity charity = new Charity("Red Cross", "88-555555", "www.redcross.org");
+        Charity charity = charityService.getCharity();
         System.out.println(charity);
 
         return "Charity: Red Cross";

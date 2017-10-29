@@ -3,8 +3,12 @@ package com.incra.jersey01;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.hk2.api.ServiceLocator;
+import org.glassfish.hk2.utilities.ServiceLocatorUtilities;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.jvnet.hk2.guice.bridge.api.GuiceBridge;
+import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
 import java.io.IOException;
 import java.net.URI;
@@ -38,6 +42,14 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         Injector injector = Guice.createInjector(new MainModule());
+
+        ServiceLocator serviceLocator = ServiceLocatorUtilities.createAndPopulateServiceLocator();
+
+        // Guice HK2 bridge
+        // See e.g. https://github.com/t-tang/jetty-jersey-HK2-Guice-boilerplate
+        GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
+        GuiceIntoHK2Bridge bridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
+        bridge.bridgeGuiceInjector(injector);
 
         final HttpServer server = startServer();
         System.out.println(String.format("Jersey app started with WADL available at "

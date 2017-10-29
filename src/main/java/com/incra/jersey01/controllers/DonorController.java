@@ -34,7 +34,7 @@ public class DonorController {
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
 
-        Donor donor = new Donor("John", "Smith");
+        Donor donor = donorService.getDonor();
         System.out.println(donor);
 
         return "Donor: John Smith";
