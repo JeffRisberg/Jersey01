@@ -35,6 +35,7 @@ public class DonorController {
     public String getIt() {
 
         Donor donor = new Donor("John", "Smith");
+        System.out.println(donor);
 
         return "Donor: John Smith";
     }
