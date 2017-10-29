@@ -1,6 +1,8 @@
 package com.incra.jersey01.controllers;
 
+import com.google.inject.Inject;
 import com.incra.jersey01.models.Charity;
+import com.incra.jersey01.services.CharityService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,6 +14,13 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("charity")
 public class CharityController {
+
+    protected CharityService charityService;
+
+    @Inject
+    public CharityController(CharityService charityService) {
+        this.charityService = charityService;
+    }
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
