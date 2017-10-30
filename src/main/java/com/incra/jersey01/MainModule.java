@@ -17,6 +17,7 @@ public class MainModule implements Module {
     @Override
     public final void configure(Binder binder) {
         for (Class<?> resource : resources()) {
+            System.out.println(resource);
             binder.bind(resource);
         }
     }

@@ -1,10 +1,17 @@
 package com.incra;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.incra.jersey01.Main;
+import com.incra.jersey01.MainModule;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.hk2.api.ServiceLocator;
+import org.glassfish.hk2.utilities.ServiceLocatorUtilities;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.jvnet.hk2.guice.bridge.api.GuiceBridge;
+import org.jvnet.hk2.guice.bridge.api.GuiceIntoHK2Bridge;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -19,8 +26,20 @@ public class DonorTest {
 
     @Before
     public void setUp() throws Exception {
+        Injector injector = Guice.createInjector(new MainModule());
+
+        ServiceLocator serviceLocator = ServiceLocatorUtilities.createAndPopulateServiceLocator();
+
+        // Guice HK2 bridge
+        // See e.g. https://github.com/t-tang/jetty-jersey-HK2-Guice-boilerplate
+        GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
+        GuiceIntoHK2Bridge bridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
+        System.out.println(bridge);
+        bridge.bridgeGuiceInjector(injector);
+
         // start the server
-        server = Main.startServer();
+        server = Main.startServer(serviceLocator);
+
         // create the client
         Client c = ClientBuilder.newClient();
 

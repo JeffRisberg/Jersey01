@@ -25,14 +25,16 @@ public class Main {
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
      * @return Grizzly HTTP server.
      */
-    public static HttpServer startServer() {
+    public static HttpServer startServer(ServiceLocator locator) {
         // create a resource config that scans for JAX-RS resources and providers
         // in com.incra package
-        final ResourceConfig rc = new ResourceConfig().packages("com.incra");
+        final ResourceConfig rc = new ResourceConfig();
+
+        rc.packages("com.incra");
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc, locator);
     }
 
     /**
@@ -49,9 +51,10 @@ public class Main {
         // See e.g. https://github.com/t-tang/jetty-jersey-HK2-Guice-boilerplate
         GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
         GuiceIntoHK2Bridge bridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
+        System.out.println(bridge);
         bridge.bridgeGuiceInjector(injector);
 
-        final HttpServer server = startServer();
+        final HttpServer server = startServer(serviceLocator);
         System.out.println(String.format("Jersey app started with WADL available at "
                 + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
         System.in.read();
