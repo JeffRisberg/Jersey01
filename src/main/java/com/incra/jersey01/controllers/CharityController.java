@@ -1,6 +1,7 @@
 package com.incra.jersey01.controllers;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
+
 import com.incra.jersey01.models.Charity;
 import com.incra.jersey01.services.CharityService;
 

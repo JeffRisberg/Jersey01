@@ -51,7 +51,6 @@ public class Main {
         // See e.g. https://github.com/t-tang/jetty-jersey-HK2-Guice-boilerplate
         GuiceBridge.getGuiceBridge().initializeGuiceBridge(serviceLocator);
         GuiceIntoHK2Bridge bridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
-        System.out.println(bridge);
         bridge.bridgeGuiceInjector(injector);
 
         final HttpServer server = startServer(serviceLocator);
