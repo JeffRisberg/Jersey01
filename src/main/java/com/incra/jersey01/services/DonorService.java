@@ -1,7 +1,11 @@
 package com.incra.jersey01.services;
 
 import com.google.inject.Singleton;
+import com.incra.jersey01.models.Charity;
 import com.incra.jersey01.models.Donor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Jeff Risberg
@@ -10,9 +14,18 @@ import com.incra.jersey01.models.Donor;
 @Singleton
 public class DonorService {
 
-    public Donor getDonor() {
-        Donor donor = new Donor("John", "Smith");
+    protected static List<Donor> donors = new ArrayList<Donor>();
 
-        return donor;
+    public DonorService() {
+        donors.add(new Donor("John", "Smith"));
+        donors.add(new Donor("Bill", "Jones"));
+    }
+
+    public Donor getDonor() {
+        return donors.get(0);
+    }
+
+    public List<Donor> getDonors() {
+        return donors;
     }
 }

@@ -1,21 +1,18 @@
 package com.incra.jersey01.controllers;
 
-import javax.inject.Inject;
-
-import com.incra.jersey01.models.Charity;
 import com.incra.jersey01.models.Donor;
-import com.incra.jersey01.services.CharityService;
 import com.incra.jersey01.services.DonorService;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Root resource (exposed at "donor" path)
- */
-@Path("donor")
+@Path("donors")
 public class DonorController {
 
     protected DonorService donorService;
@@ -25,19 +22,26 @@ public class DonorController {
         this.donorService = donorService;
     }
 
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     */
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
+    @Path("/one")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Donor fetchOne() {
 
-        Donor donor = donorService.getDonor();
-        System.out.println(donor);
+        return donorService.getDonor();
+    }
 
-        return "Donor: John Smith";
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map fetchAll() {
+
+        List<Donor> data = donorService.getDonors();
+
+        Map result = new HashMap();
+
+        result.put("data", data);
+        result.put("totalCount", data.size());
+
+        return result;
     }
 }

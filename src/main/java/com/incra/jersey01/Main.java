@@ -16,15 +16,9 @@ public class Main {
 
         // the handler is a wrapper of some sort
         ServletContextHandler sch = new ServletContextHandler(server, "/");
-        // we add to service, which is a default one
-        sch.addServlet(DefaultServlet.class, "/").setInitParameter("resourceBase", "webapps");
-
-        // another wrapper
         ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
-        // not sure
         jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, MainApplication.class.getCanonicalName());
-        // not sure
-        sch.addServlet(jerseyServletHolder, "/controllers/*");
+        sch.addServlet(jerseyServletHolder, "/*");
 
         server.start();
         server.join();
