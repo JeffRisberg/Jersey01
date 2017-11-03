@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +26,16 @@ public class CharityController {
     @GET
     @Path("/one")
     @Produces(MediaType.APPLICATION_JSON)
-    public Charity fetchOne() {
+    public Map fetchOne() {
 
-        return charityService.getCharity();
+        Charity data = charityService.getCharity();
+
+        Map result = new HashMap();
+
+        result.put("data", data);
+        result.put("errors", new ArrayList());
+
+        return result;
     }
 
     @GET
@@ -41,6 +49,7 @@ public class CharityController {
 
         result.put("data", data);
         result.put("totalCount", data.size());
+        result.put("errors", new ArrayList());
 
         return result;
     }

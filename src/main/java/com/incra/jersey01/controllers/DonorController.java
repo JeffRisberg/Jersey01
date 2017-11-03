@@ -1,5 +1,6 @@
 package com.incra.jersey01.controllers;
 
+import com.incra.jersey01.models.Charity;
 import com.incra.jersey01.models.Donor;
 import com.incra.jersey01.services.DonorService;
 
@@ -8,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +27,16 @@ public class DonorController {
     @GET
     @Path("/one")
     @Produces(MediaType.APPLICATION_JSON)
-    public Donor fetchOne() {
+    public Map fetchOne() {
 
-        return donorService.getDonor();
+        Donor data = donorService.getDonor();
+
+        Map result = new HashMap();
+
+        result.put("data", data);
+        result.put("errors", new ArrayList());
+
+        return result;
     }
 
     @GET
@@ -41,6 +50,7 @@ public class DonorController {
 
         result.put("data", data);
         result.put("totalCount", data.size());
+        result.put("errors", new ArrayList());
 
         return result;
     }
