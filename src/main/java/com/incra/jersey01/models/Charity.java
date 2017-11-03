@@ -21,4 +21,15 @@ public class Charity {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getEin() {
+        return ein;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
 }

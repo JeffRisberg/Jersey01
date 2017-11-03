@@ -30,7 +30,7 @@ public class CharityService {
         return null;
     }
 
-    public List<Charity> getCharities() {
+    public List<Charity> getCharities(int limit, int offset) {
         return charities;
     }
 }

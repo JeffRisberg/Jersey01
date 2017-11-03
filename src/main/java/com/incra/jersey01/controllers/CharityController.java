@@ -1,13 +1,11 @@
 package com.incra.jersey01.controllers;
 
 import com.incra.jersey01.models.Charity;
+import com.incra.jersey01.models.Donor;
 import com.incra.jersey01.services.CharityService;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Path("charities")
-public class CharityController {
+public class CharityController extends AbstractController {
 
     protected CharityService charityService;
 
@@ -32,26 +30,17 @@ public class CharityController {
 
         Charity data = charityService.getCharity(id);
 
-        Map result = new HashMap();
-
-        result.put("data", data);
-        result.put("errors", new ArrayList());
-
-        return Response.ok(data, MediaType.APPLICATION_JSON).build();
+        return createEntityResponse(data);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Map fetchAll() {
+    public Response fetchAll(
+            @DefaultValue("50") @QueryParam("limit") int limit,
+            @DefaultValue("0") @QueryParam("offset") int offset) {
 
-        List<Charity> data = charityService.getCharities();
+        List<Charity> data = charityService.getCharities(limit, offset);
 
-        Map result = new HashMap();
-
-        result.put("data", data);
-        result.put("totalCount", data.size());
-        result.put("errors", new ArrayList());
-
-        return result;
+        return createEntityListResponse(data, limit, offset);
     }
 }

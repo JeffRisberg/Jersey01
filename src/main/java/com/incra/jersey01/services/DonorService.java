@@ -28,7 +28,7 @@ public class DonorService {
         return null;
     }
 
-    public List<Donor> getDonors() {
+    public List<Donor> getDonors(int limit, int offset) {
         return donors;
     }
 }
