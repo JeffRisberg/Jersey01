@@ -1,17 +1,24 @@
 package com.incra.jersey01.models;
 
 /**
- * @author jeff
+ * @author Jeff Risberg
  * @since 10/26/17
  */
 public class Charity {
+    protected Integer id;
     protected String name;
     protected String ein;
     protected String website;
 
-    public Charity(String name, String ein, String website) {
+    public Charity(int id, String name, String ein, String website) {
+        this.id = id;
         this.name = name;
         this.ein = ein;
         this.website = website;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
 }
