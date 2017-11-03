@@ -25,7 +25,7 @@ public class DonorController extends AbstractController {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response fetchOne(@PathParam("id") Integer id) {
+    public Response fetch(@PathParam("id") Integer id) {
 
         Donor data = donorService.getDonor(id);
 
@@ -34,11 +34,12 @@ public class DonorController extends AbstractController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response fetchAll(
+    public Response fetchList(
+            @DefaultValue("") @QueryParam("sort") String sortStr,
             @DefaultValue("50") @QueryParam("limit") int limit,
             @DefaultValue("0") @QueryParam("offset") int offset) {
 
-        List<Donor> data = donorService.getDonors(limit, offset);
+        List<Donor> data = donorService.getDonors(sortStr, limit, offset);
 
         return createEntityListResponse(data, limit, offset);
     }

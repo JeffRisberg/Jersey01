@@ -1,6 +1,7 @@
 package com.incra.jersey01.services;
 
 import com.google.inject.Singleton;
+import com.incra.jersey01.common.model.jooq.query.SortDesc;
 import com.incra.jersey01.models.Charity;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
  * @since 10/26/17
  */
 @Singleton
-public class CharityService {
+public class CharityService extends AbstractService {
 
     protected static List<Charity> charities = new ArrayList<Charity>();
 
@@ -30,7 +31,10 @@ public class CharityService {
         return null;
     }
 
-    public List<Charity> getCharities(int limit, int offset) {
+    public List<Charity> getCharities(String sortStr, int limit, int offset) {
+
+        List<SortDesc> sortDescs = this.parseSortStr(sortStr);
+
         return charities;
     }
 }

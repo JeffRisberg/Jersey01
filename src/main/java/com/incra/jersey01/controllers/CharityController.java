@@ -26,7 +26,7 @@ public class CharityController extends AbstractController {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response fetchOne(@PathParam("id") Integer id) {
+    public Response fetch(@PathParam("id") Integer id) {
 
         Charity data = charityService.getCharity(id);
 
@@ -35,11 +35,12 @@ public class CharityController extends AbstractController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response fetchAll(
+    public Response fetchList(
+            @DefaultValue("") @QueryParam("sort") String sortStr,
             @DefaultValue("50") @QueryParam("limit") int limit,
             @DefaultValue("0") @QueryParam("offset") int offset) {
 
-        List<Charity> data = charityService.getCharities(limit, offset);
+        List<Charity> data = charityService.getCharities(sortStr, limit, offset);
 
         return createEntityListResponse(data, limit, offset);
     }
