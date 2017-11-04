@@ -1,23 +1,21 @@
 package com.incra.jersey01.common.model.jooq.query;
 
-import org.jooq.TableField;
-
 /**
  * @author Jeff Risberg
  * @since 11/24/16
  */
 public class FilterDesc {
-    private TableField field;
+    private FieldDesc field;
     private FilterOperator operator;
     private Object value;
 
-    public FilterDesc(TableField field, FilterOperator operator, Object value) {
+    public FilterDesc(FieldDesc field, FilterOperator operator, Object value) {
         this.field = field;
         this.operator = operator;
         this.value = value;
     }
 
-    public TableField getField() {
+    public FieldDesc getField() {
         return field;
     }
 

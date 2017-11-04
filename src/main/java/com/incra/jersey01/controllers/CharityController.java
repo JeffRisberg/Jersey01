@@ -1,13 +1,14 @@
 package com.incra.jersey01.controllers;
 
+import com.incra.jersey01.common.model.jooq.query.FilterDesc;
+import com.incra.jersey01.common.model.jooq.query.SortDesc;
 import com.incra.jersey01.models.Charity;
 import com.incra.jersey01.models.Donor;
 import com.incra.jersey01.services.CharityService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,12 +37,18 @@ public class CharityController extends AbstractController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response fetchList(
-            @DefaultValue("") @QueryParam("sort") String sortStr,
             @DefaultValue("50") @QueryParam("limit") int limit,
-            @DefaultValue("0") @QueryParam("offset") int offset) {
+            @DefaultValue("0") @QueryParam("offset") int offset,
+            @DefaultValue("") @QueryParam("sort") String sortStr,
+            @Context UriInfo uriInfo) {
 
-        List<Charity> data = charityService.getCharities(sortStr, limit, offset);
+        MultivaluedMap<String, String> queryParams = uriInfo.getQueryParameters();
+        List<FilterDesc> filterDescs = this.parseFiltering(queryParams);
+        List<SortDesc> sortDescs = this.parseSortStr(sortStr);
 
-        return createEntityListResponse(data, limit, offset);
+        List<Charity> data = charityService.getCharities(limit, offset, filterDescs, sortDescs);
+        long totalCount = charityService.getCharitiesCount(filterDescs);
+
+        return createEntityListResponse(data, totalCount, limit, offset);
     }
 }
