@@ -35,7 +35,7 @@ public class AbstractController {
                 sortDir = SortDirection.Descending;
             }
 
-                sortDescs.add(new SortDesc(new FieldDesc(fieldName), sortDir));
+            sortDescs.add(new SortDesc(new FieldDesc(fieldName), sortDir));
         }
         return sortDescs;
     }

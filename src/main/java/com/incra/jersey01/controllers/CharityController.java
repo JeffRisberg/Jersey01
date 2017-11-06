@@ -3,16 +3,12 @@ package com.incra.jersey01.controllers;
 import com.incra.jersey01.common.model.jooq.query.FilterDesc;
 import com.incra.jersey01.common.model.jooq.query.SortDesc;
 import com.incra.jersey01.models.Charity;
-import com.incra.jersey01.models.Donor;
 import com.incra.jersey01.services.CharityService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Path("charities")
 public class CharityController extends AbstractController {
