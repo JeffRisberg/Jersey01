@@ -27,7 +27,7 @@ public class CharityController extends AbstractController {
 
         Charity data = charityService.getCharity(id);
 
-        return createEntityResponse(data);
+        return createEntityResponse(data, null);
     }
 
     @GET
@@ -45,6 +45,6 @@ public class CharityController extends AbstractController {
         List<Charity> data = charityService.getCharities(limit, offset, filterDescs, sortDescs);
         long totalCount = charityService.getCharitiesCount(filterDescs);
 
-        return createEntityListResponse(data, totalCount, limit, offset);
+        return createEntityListResponse(data, totalCount, limit, offset, null);
     }
 }

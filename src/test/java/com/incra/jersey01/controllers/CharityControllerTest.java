@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -18,6 +19,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Jeff Risberg
@@ -51,13 +53,30 @@ public class CharityControllerTest {
     }
 
     @Test
-    public void testFetch() {
+    public void testFetchValid() {
         Invocation.Builder invocationBuilder = target.path("charities/1").request().accept(MediaType.APPLICATION_JSON);
 
-        String responseMsg = invocationBuilder.get(String.class);
+        try {
+            String responseMsg = invocationBuilder.get(String.class);
 
-        assertTrue(responseMsg.contains("Red Cross"));
-        assertTrue(responseMsg.contains("www.redcross.org"));
+            assertTrue(responseMsg.contains("Red Cross"));
+            assertTrue(responseMsg.contains("www.redcross.org"));
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testFetchMissing() {
+        Invocation.Builder invocationBuilder = target.path("charities/999").request().accept(MediaType.APPLICATION_JSON);
+
+        try {
+            String responseMsg = invocationBuilder.get(String.class);
+
+            fail();
+        } catch (NotFoundException e) {
+            // success
+        }
     }
 
     @Test

@@ -27,7 +27,7 @@ public class DonorController extends AbstractController {
 
         Donor data = donorService.getDonor(id);
 
-        return createEntityResponse(data);
+        return createEntityResponse(data, null);
     }
 
     @GET
@@ -45,6 +45,6 @@ public class DonorController extends AbstractController {
         List<Donor> data = donorService.getDonors(limit, offset, sortDescs, filterDescs);
         long totalCount = donorService.getDonorsCount(filterDescs);
 
-        return createEntityListResponse(data, totalCount, limit, offset);
+        return createEntityListResponse(data, totalCount, limit, offset, null);
     }
 }

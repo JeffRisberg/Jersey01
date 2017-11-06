@@ -19,7 +19,7 @@ public class AbstractController {
      * Generate a sorting specification from the given sort string, such as "-field1,field2".
      *
      * @param sortStr
-     * @return
+     * @return list of Sort Descriptors
      */
     protected List<SortDesc> parseSortStr(String sortStr) {
         List<SortDesc> sortDescs = new ArrayList<SortDesc>();
@@ -40,6 +40,13 @@ public class AbstractController {
         return sortDescs;
     }
 
+    /**
+     * Generate a filtering specification from the query params of the request, of the
+     * form "fieldname=fieldValue".
+     *
+     * @param queryParams
+     * @return list of Filter Descriptors
+     */
     protected List<FilterDesc> parseFiltering(MultivaluedMap<String, String> queryParams) {
         List<FilterDesc> filterDescs = new ArrayList<FilterDesc>();
 
@@ -55,15 +62,27 @@ public class AbstractController {
         return filterDescs;
     }
 
-    protected Response createEntityResponse(Object data) {
-        List<String> errors = new ArrayList();
+    /**
+     * Generate the response for a fetch of a single entity.
+     *
+     * @param data if null, triggers 404 status code.
+     * @return Response
+     */
+    protected Response createEntityResponse(Object data, List<Error> errors) {
+        List<Error> resultErrors = new ArrayList<Error>();
         Map result = new HashMap();
 
         result.put("data", data);
-        result.put("errors", errors);
+        result.put("errors", resultErrors);
+
+        if (errors != null) {
+            for (Error error : errors) {
+                resultErrors.add(error);
+            }
+        }
 
         if (data == null) {
-            errors.add("Not found");
+            resultErrors.add(new Error("Not found"));
 
             return Response.status(Response.Status.NOT_FOUND).entity(result).build();
         } else {
@@ -71,15 +90,39 @@ public class AbstractController {
         }
     }
 
-    protected Response createEntityListResponse(List data, long totalCount, int limit, int offset) {
-        List<String> errors = new ArrayList();
+    /**
+     * Generate the response for a fetch of a collection of entities.
+     *
+     * @param data
+     * @param totalCount
+     * @param limit
+     * @param offset
+     * @return Response
+     */
+    protected Response createEntityListResponse(
+            List data,
+            long totalCount,
+            int limit,
+            int offset,
+            List<Error> errors) {
+        if (data == null) {
+            throw new IllegalArgumentException("missing data");
+        }
+
+        List<Error> resultErrors = new ArrayList<Error>();
         Map result = new HashMap();
 
         result.put("data", data);
         result.put("totalCount", totalCount);
         result.put("limit", limit);
         result.put("offset", offset);
-        result.put("errors", errors);
+        result.put("errors", resultErrors);
+
+        if (errors != null) {
+            for (Error error : errors) {
+                resultErrors.add(error);
+            }
+        }
 
         return Response.status(Response.Status.OK).entity(result).build();
     }
