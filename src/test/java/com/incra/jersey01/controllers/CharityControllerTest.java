@@ -1,5 +1,7 @@
 package com.incra.jersey01.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import com.incra.jersey01.MainApplication;
 import org.eclipse.jetty.server.Server;
@@ -18,8 +20,7 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * @author Jeff Risberg
@@ -28,6 +29,7 @@ import static org.junit.Assert.fail;
 public class CharityControllerTest {
     private Server server;
     private WebTarget target;
+    private ObjectMapper mapper;
 
     @Before
     public void setUp() throws Exception {
@@ -45,6 +47,8 @@ public class CharityControllerTest {
         c.register(JacksonJaxbJsonProvider.class);
 
         target = c.target("http://localhost:8080/");
+
+        mapper = new ObjectMapper();
     }
 
     @After
@@ -61,6 +65,10 @@ public class CharityControllerTest {
 
             assertTrue(responseMsg.contains("Red Cross"));
             assertTrue(responseMsg.contains("www.redcross.org"));
+
+            JsonNode root = mapper.readTree(responseMsg);
+            String name = root.at("/data/name").toString();
+            assertEquals("\"Red Cross\"", name);
         } catch (Exception e) {
             fail();
         }
@@ -73,6 +81,8 @@ public class CharityControllerTest {
         try {
             String responseMsg = invocationBuilder.get(String.class);
 
+            assertNotNull(responseMsg);
+
             fail();
         } catch (NotFoundException e) {
             // success
@@ -83,10 +93,18 @@ public class CharityControllerTest {
     public void testFetchList() {
         Invocation.Builder invocationBuilder = target.path("charities").request().accept(MediaType.APPLICATION_JSON);
 
-        String responseMsg = invocationBuilder.get(String.class);
+        try {
+            String responseMsg = invocationBuilder.get(String.class);
 
-        assertTrue(responseMsg.contains("totalCount"));
-        assertTrue(responseMsg.contains("Red Cross"));
-        assertTrue(responseMsg.contains("www.redcross.org"));
+            assertTrue(responseMsg.contains("totalCount"));
+            assertTrue(responseMsg.contains("Red Cross"));
+            assertTrue(responseMsg.contains("www.redcross.org"));
+
+            JsonNode root = mapper.readTree(responseMsg);
+            String name = root.at("/data/0/name").toString();
+            assertEquals("\"Red Cross\"", name);
+        } catch (Exception e) {
+            fail();
+        }
     }
 }
