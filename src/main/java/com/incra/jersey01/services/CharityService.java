@@ -5,7 +5,6 @@ import com.incra.jersey01.common.model.jooq.query.FilterDesc;
 import com.incra.jersey01.common.model.jooq.query.SortDesc;
 import com.incra.jersey01.common.model.jooq.query.SortDirection;
 import com.incra.jersey01.models.Charity;
-import com.incra.jersey01.models.Donor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
 @Singleton
 public class CharityService {
 
-    protected static List<Charity> charities = new ArrayList<Charity>();
+    protected List<Charity> charities = new ArrayList<Charity>();
 
     public CharityService() {
         charities.add(new Charity(1, "Red Cross", "66-555555", "www.redcross.org"));
@@ -39,7 +38,7 @@ public class CharityService {
     public List<Charity> getCharities(int limit, int offset, List<FilterDesc> filterDescs, List<SortDesc> sortDescs) {
         List<Charity> result = applyFilter(filterDescs);
 
-        if (sortDescs.size() > 0) {
+        if (sortDescs != null && sortDescs.size() > 0) {
             SortDesc sortDesc = sortDescs.get(0);
 
             if (sortDesc.getDirection() == SortDirection.Ascending) {
@@ -79,20 +78,22 @@ public class CharityService {
         for (Charity charity : charities) {
             boolean accepted = true;
 
-            for (FilterDesc filterDesc : filterDescs) {
-                switch (filterDesc.getField().getName()) {
-                    case "name":
-                        if (!charity.getName().equalsIgnoreCase((String) filterDesc.getValue()))
-                            accepted = false;
-                        break;
-                    case "ein":
-                        if (!charity.getEin().equals(filterDesc.getValue()))
-                            accepted = false;
-                        break;
-                    case "website":
-                        if (!charity.getWebsite().equals(filterDesc.getValue()))
-                            accepted = false;
-                        break;
+            if (filterDescs != null) {
+                for (FilterDesc filterDesc : filterDescs) {
+                    switch (filterDesc.getField().getName()) {
+                        case "name":
+                            if (!charity.getName().equalsIgnoreCase((String) filterDesc.getValue()))
+                                accepted = false;
+                            break;
+                        case "ein":
+                            if (!charity.getEin().equals(filterDesc.getValue()))
+                                accepted = false;
+                            break;
+                        case "website":
+                            if (!charity.getWebsite().equalsIgnoreCase((String) filterDesc.getValue()))
+                                accepted = false;
+                            break;
+                    }
                 }
             }
 

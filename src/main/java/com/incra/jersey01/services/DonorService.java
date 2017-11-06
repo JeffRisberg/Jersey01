@@ -17,7 +17,7 @@ import java.util.List;
 @Singleton
 public class DonorService {
 
-    protected static List<Donor> donors = new ArrayList<Donor>();
+    protected List<Donor> donors = new ArrayList<Donor>();
 
     public DonorService() {
         donors.add(new Donor(1, "John", "Smith"));
@@ -39,7 +39,7 @@ public class DonorService {
     public List<Donor> getDonors(int limit, int offset, List<SortDesc> sortDescs, List<FilterDesc> filterDescs) {
         List<Donor> result = applyFilter(filterDescs);
 
-        if (sortDescs.size() > 0) {
+        if (sortDescs != null && sortDescs.size() > 0) {
             SortDesc sortDesc = sortDescs.get(0);
 
             if (sortDesc.getDirection() == SortDirection.Ascending) {
@@ -75,16 +75,18 @@ public class DonorService {
         for (Donor donor : donors) {
             boolean accepted = true;
 
-            for (FilterDesc filterDesc : filterDescs) {
-                switch (filterDesc.getField().getName()) {
-                    case "firstName":
-                        if (!donor.getFirstName().equalsIgnoreCase((String) filterDesc.getValue()))
-                            accepted = false;
-                        break;
-                    case "lastName":
-                        if (!donor.getLastName().equalsIgnoreCase((String) filterDesc.getValue()))
-                            accepted = false;
-                        break;
+            if (filterDescs != null) {
+                for (FilterDesc filterDesc : filterDescs) {
+                    switch (filterDesc.getField().getName()) {
+                        case "firstName":
+                            if (!donor.getFirstName().equalsIgnoreCase((String) filterDesc.getValue()))
+                                accepted = false;
+                            break;
+                        case "lastName":
+                            if (!donor.getLastName().equalsIgnoreCase((String) filterDesc.getValue()))
+                                accepted = false;
+                            break;
+                    }
                 }
             }
 
