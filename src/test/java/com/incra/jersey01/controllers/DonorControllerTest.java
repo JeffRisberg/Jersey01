@@ -67,8 +67,8 @@ public class DonorControllerTest {
             assertTrue(responseMsg.contains("Smith"));
 
             JsonNode root = mapper.readTree(responseMsg);
-            String firstName = root.at("/data/firstName").toString();
-            assertEquals("\"John\"", firstName);
+            String firstName = root.at("/data/firstName").asText();
+            assertEquals("John", firstName);
         } catch (Exception e) {
             fail();
         }
@@ -96,15 +96,27 @@ public class DonorControllerTest {
         try {
             String responseMsg = invocationBuilder.get(String.class);
 
+            // these tests are simplistic
             assertTrue(responseMsg.contains("totalCount"));
             assertTrue(responseMsg.contains("John"));
             assertTrue(responseMsg.contains("Smith"));
-            assertTrue(responseMsg.contains("Tom"));
-            assertTrue(responseMsg.contains("Kennedy"));
+            assertTrue(responseMsg.contains("Bill"));
+            assertTrue(responseMsg.contains("Jones"));
 
+            // these tests are much stricter
             JsonNode root = mapper.readTree(responseMsg);
-            String firstName = root.at("/data/0/firstName").toString();
-            assertEquals("\"John\"", firstName);
+
+            String firstName0 = root.at("/data/0/firstName").asText();
+            assertEquals("John", firstName0);
+
+            String lastName0 = root.at("/data/0/lastName").asText();
+            assertEquals("Smith", lastName0);
+
+            String firstName1 = root.at("/data/1/firstName").asText();
+            assertEquals("Bill", firstName1);
+
+            String lastName1 = root.at("/data/1/lastName").asText();
+            assertEquals("Jones", lastName1);
         } catch (Exception e) {
             fail();
         }

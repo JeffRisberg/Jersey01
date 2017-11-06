@@ -67,8 +67,8 @@ public class CharityControllerTest {
             assertTrue(responseMsg.contains("www.redcross.org"));
 
             JsonNode root = mapper.readTree(responseMsg);
-            String name = root.at("/data/name").toString();
-            assertEquals("\"Red Cross\"", name);
+            String name = root.at("/data/name").asText();
+            assertEquals("Red Cross", name);
         } catch (Exception e) {
             fail();
         }
@@ -96,13 +96,22 @@ public class CharityControllerTest {
         try {
             String responseMsg = invocationBuilder.get(String.class);
 
+            // these tests are simplistic
             assertTrue(responseMsg.contains("totalCount"));
             assertTrue(responseMsg.contains("Red Cross"));
             assertTrue(responseMsg.contains("www.redcross.org"));
 
+            // these tests are much stricter
             JsonNode root = mapper.readTree(responseMsg);
-            String name = root.at("/data/0/name").toString();
-            assertEquals("\"Red Cross\"", name);
+
+            String name0 = root.at("/data/0/name").asText();
+            assertEquals("Red Cross", name0);
+
+            String name1 = root.at("/data/1/name").asText();
+            assertEquals("ASPCA", name1);
+
+            int totalCount = root.at("/totalCount").asInt();
+            assertEquals(6, totalCount);
         } catch (Exception e) {
             fail();
         }
