@@ -96,14 +96,6 @@ public class DonorControllerTest {
         try {
             String responseMsg = invocationBuilder.get(String.class);
 
-            // these tests are simplistic
-            assertTrue(responseMsg.contains("totalCount"));
-            assertTrue(responseMsg.contains("John"));
-            assertTrue(responseMsg.contains("Smith"));
-            assertTrue(responseMsg.contains("Bill"));
-            assertTrue(responseMsg.contains("Jones"));
-
-            // these tests are much stricter
             JsonNode root = mapper.readTree(responseMsg);
 
             String firstName0 = root.at("/data/0/firstName").asText();
@@ -119,6 +111,35 @@ public class DonorControllerTest {
             assertEquals("Jones", lastName1);
         } catch (Exception e) {
             fail();
+        }
+    }
+
+    @Test
+    public void testDeleteValid() {
+        Invocation.Builder invocationBuilder = target.path("donors/1").request().accept(MediaType.APPLICATION_JSON);
+
+        try {
+            String responseMsg = invocationBuilder.delete(String.class);
+
+            JsonNode root = mapper.readTree(responseMsg);
+            String errors = root.at("/errors/0").asText();
+
+            assertEquals("", errors);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testDeleteMissing() {
+        Invocation.Builder invocationBuilder = target.path("donors/999").request().accept(MediaType.APPLICATION_JSON);
+
+        try {
+            String responseMsg = invocationBuilder.delete(String.class);
+
+            fail();
+        } catch (Exception e) {
+            assertEquals("HTTP 404 Not Found", e.getMessage());
         }
     }
 }

@@ -3,6 +3,7 @@ package com.incra.jersey01.controllers;
 import com.incra.jersey01.common.model.jooq.query.FilterDesc;
 import com.incra.jersey01.common.model.jooq.query.SortDesc;
 import com.incra.jersey01.models.Charity;
+import com.incra.jersey01.models.Donor;
 import com.incra.jersey01.services.CharityService;
 
 import javax.inject.Inject;
@@ -46,5 +47,15 @@ public class CharityController extends AbstractController {
         long totalCount = charityService.getCharitiesCount(filterDescs);
 
         return createEntityListResponse(data, totalCount, limit, offset, null);
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") Integer id) {
+
+        Charity data = charityService.getCharity(id);
+
+        return createDeleteResponse(data, null);
     }
 }

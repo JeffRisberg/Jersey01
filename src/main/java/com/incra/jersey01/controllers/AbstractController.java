@@ -126,4 +126,31 @@ public class AbstractController {
 
         return Response.status(Response.Status.OK).entity(result).build();
     }
+
+    /**
+     * Generate the response for a delete.
+     *
+     * @param errors
+     * @return
+     */
+    protected Response createDeleteResponse(Object data, List<Error> errors) {
+        List<Error> resultErrors = new ArrayList<Error>();
+        Map result = new HashMap();
+
+        result.put("errors", resultErrors);
+
+        if (errors != null) {
+            for (Error error : errors) {
+                resultErrors.add(error);
+            }
+        }
+
+        if (data == null) {
+            resultErrors.add(new Error("Not found"));
+
+            return Response.status(Response.Status.NOT_FOUND).entity(result).build();
+        } else {
+            return Response.status(Response.Status.OK).entity(result).build();
+        }
+    }
 }

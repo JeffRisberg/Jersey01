@@ -85,7 +85,7 @@ public class CharityControllerTest {
 
             fail();
         } catch (NotFoundException e) {
-            // success
+            System.out.println(e.getMessage());
         }
     }
 
@@ -96,12 +96,6 @@ public class CharityControllerTest {
         try {
             String responseMsg = invocationBuilder.get(String.class);
 
-            // these tests are simplistic
-            assertTrue(responseMsg.contains("totalCount"));
-            assertTrue(responseMsg.contains("Red Cross"));
-            assertTrue(responseMsg.contains("www.redcross.org"));
-
-            // these tests are much stricter
             JsonNode root = mapper.readTree(responseMsg);
 
             String name0 = root.at("/data/0/name").asText();
@@ -114,6 +108,38 @@ public class CharityControllerTest {
             assertEquals(6, totalCount);
         } catch (Exception e) {
             fail();
+        }
+    }
+
+    @Test
+    public void testDeleteValid() {
+        Invocation.Builder invocationBuilder = target.path("charities/1").request().accept(MediaType.APPLICATION_JSON);
+
+        try {
+            String responseMsg = invocationBuilder.delete(String.class);
+
+            JsonNode root = mapper.readTree(responseMsg);
+            String errors = root.at("/errors/0").asText();
+
+            assertEquals("", errors);
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testDeleteMissing() {
+        Invocation.Builder invocationBuilder = target.path("charities/999").request().accept(MediaType.APPLICATION_JSON);
+
+        try {
+            String responseMsg = invocationBuilder.delete(String.class);
+
+            JsonNode root = mapper.readTree(responseMsg);
+            String errors = root.at("/errors/0/title").asText();
+
+            assertEquals("Not found", errors);
+        } catch (Exception e) {
+            assertEquals("HTTP 404 Not Found", e.getMessage());
         }
     }
 }

@@ -47,4 +47,14 @@ public class DonorController extends AbstractController {
 
         return createEntityListResponse(data, totalCount, limit, offset, null);
     }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") Integer id) {
+
+        Donor data = donorService.getDonor(id);
+
+        return createDeleteResponse(data,null);
+    }
 }
