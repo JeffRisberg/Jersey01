@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -138,7 +139,7 @@ public class DonorControllerTest {
             String responseMsg = invocationBuilder.delete(String.class);
 
             fail();
-        } catch (Exception e) {
+        } catch (WebApplicationException e) {
             assertEquals("HTTP 404 Not Found", e.getMessage());
         }
     }

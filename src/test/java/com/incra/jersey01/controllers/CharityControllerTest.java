@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -134,11 +135,8 @@ public class CharityControllerTest {
         try {
             String responseMsg = invocationBuilder.delete(String.class);
 
-            JsonNode root = mapper.readTree(responseMsg);
-            String errors = root.at("/errors/0/title").asText();
-
-            assertEquals("Not found", errors);
-        } catch (Exception e) {
+            fail();
+        } catch (WebApplicationException e) {
             assertEquals("HTTP 404 Not Found", e.getMessage());
         }
     }
