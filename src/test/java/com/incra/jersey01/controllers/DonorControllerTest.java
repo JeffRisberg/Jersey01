@@ -20,6 +20,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import static org.junit.Assert.*;
 
@@ -136,11 +137,13 @@ public class DonorControllerTest {
         Invocation.Builder invocationBuilder = target.path("donors/999").request().accept(MediaType.APPLICATION_JSON);
 
         try {
-            String responseMsg = invocationBuilder.delete(String.class);
+            invocationBuilder.delete(String.class);
 
             fail();
-        } catch (WebApplicationException e) {
-            assertEquals("HTTP 404 Not Found", e.getMessage());
+        } catch (WebApplicationException wae) {
+            Response response = wae.getResponse();
+
+            assertEquals(404, response.getStatus());
         }
     }
 }

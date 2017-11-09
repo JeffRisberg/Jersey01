@@ -2,6 +2,7 @@ package com.incra.jersey01.controllers;
 
 import com.incra.jersey01.common.model.jooq.query.*;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -133,7 +134,8 @@ public class AbstractController {
      * @param errors
      * @return
      */
-    protected Response createDeleteResponse(Object data, List<Error> errors) {
+    protected Response createDeleteResponse(Object data, List<Error> errors)
+            throws WebApplicationException {
         List<Error> resultErrors = new ArrayList<Error>();
         Map result = new HashMap();
 
@@ -148,7 +150,8 @@ public class AbstractController {
         if (data == null) {
             resultErrors.add(new Error("Not found"));
 
-            return Response.status(Response.Status.NOT_FOUND).entity(result).build();
+            throw new WebApplicationException(
+                    Response.status(Response.Status.NOT_FOUND).entity(result).build());
         } else {
             return Response.status(Response.Status.OK).entity(result).build();
         }
