@@ -65,9 +65,6 @@ public class CharityControllerTest {
         try {
             String responseMsg = invocationBuilder.get(String.class);
 
-            assertTrue(responseMsg.contains("Red Cross"));
-            assertTrue(responseMsg.contains("www.redcross.org"));
-
             JsonNode root = mapper.readTree(responseMsg);
             String name = root.at("/data/name").asText();
             assertEquals("Red Cross", name);

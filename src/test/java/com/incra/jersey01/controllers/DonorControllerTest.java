@@ -65,9 +65,6 @@ public class DonorControllerTest {
         try {
             String responseMsg = invocationBuilder.get(String.class);
 
-            assertTrue(responseMsg.contains("John"));
-            assertTrue(responseMsg.contains("Smith"));
-
             JsonNode root = mapper.readTree(responseMsg);
             String firstName = root.at("/data/firstName").asText();
             assertEquals("John", firstName);
