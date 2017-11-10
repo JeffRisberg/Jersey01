@@ -71,10 +71,8 @@ public class AbstractController {
      */
     protected Response createEntityResponse(Object data, List<Error> errors) {
         List<Error> resultErrors = new ArrayList<Error>();
-        Map result = new HashMap();
 
-        result.put("data", data);
-        result.put("errors", resultErrors);
+        Envelope envelope = new Envelope(data, resultErrors);
 
         if (errors != null) {
             for (Error error : errors) {
@@ -85,9 +83,9 @@ public class AbstractController {
         if (data == null) {
             resultErrors.add(new Error("Not found"));
 
-            return Response.status(Response.Status.NOT_FOUND).entity(result).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(envelope).build();
         } else {
-            return Response.status(Response.Status.OK).entity(result).build();
+            return Response.status(Response.Status.OK).entity(envelope).build();
         }
     }
 
@@ -111,13 +109,7 @@ public class AbstractController {
         }
 
         List<Error> resultErrors = new ArrayList<Error>();
-        Map result = new HashMap();
-
-        result.put("data", data);
-        result.put("totalCount", totalCount);
-        result.put("limit", limit);
-        result.put("offset", offset);
-        result.put("errors", resultErrors);
+        Envelope envelope = new Envelope(data, totalCount, limit, offset, errors);
 
         if (errors != null) {
             for (Error error : errors) {
@@ -125,7 +117,7 @@ public class AbstractController {
             }
         }
 
-        return Response.status(Response.Status.OK).entity(result).build();
+        return Response.status(Response.Status.OK).entity(envelope).build();
     }
 
     /**

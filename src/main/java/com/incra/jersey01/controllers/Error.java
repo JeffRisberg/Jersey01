@@ -1,18 +1,19 @@
 package com.incra.jersey01.controllers;
 
-import org.eclipse.jetty.http.HttpStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
- * Provides the most important or commonly-used 
+ * Provides the most important or commonly-used fields of the Error object.
+ *
  * @author Jeff Risberg
  * @since 10/26/17
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Error {
     protected Integer id;
     protected String title;
     protected String detail;
     protected int status;
-
 
     public Error(Integer id, String title, String detail, int status) {
         this.id = id;
