@@ -129,9 +129,7 @@ public class AbstractController {
     protected Response createDeleteResponse(Object data, List<Error> errors)
             throws WebApplicationException {
         List<Error> resultErrors = new ArrayList<Error>();
-        Map result = new HashMap();
-
-        result.put("errors", resultErrors);
+        Envelope envelope = new Envelope(data, errors);
 
         if (errors != null) {
             for (Error error : errors) {
@@ -143,9 +141,9 @@ public class AbstractController {
             resultErrors.add(new Error("Not found"));
 
             throw new WebApplicationException(
-                    Response.status(Response.Status.NOT_FOUND).entity(result).build());
+                    Response.status(Response.Status.NOT_FOUND).entity(envelope).build());
         } else {
-            return Response.status(Response.Status.OK).entity(result).build();
+            return Response.status(Response.Status.OK).entity(envelope).build();
         }
     }
 }
