@@ -24,8 +24,10 @@ public class DonorService {
         donors.add(new Donor(2, "Bill", "Jones"));
         donors.add(new Donor(3, "Tom", "Kennedy"));
         donors.add(new Donor(4, "Jack", "Underhill"));
-        donors.add(new Donor(5, "Ringo", "Starr"));
-        donors.add(new Donor(6, "Paul", "Smith"));
+        donors.add(new Donor(5, "Sally", "Starr"));
+        donors.add(new Donor(6, "Henry", "Adams"));
+        donors.add(new Donor(7, "Paul", "Jones"));
+        donors.add(new Donor(8, "Steven", "Hawking"));
     }
 
     public Donor getDonor(int id) {

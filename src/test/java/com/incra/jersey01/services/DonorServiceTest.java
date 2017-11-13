@@ -36,6 +36,6 @@ public class DonorServiceTest {
         List<Donor> donorList = donorService.getDonors(50, 0, null, null);
 
         assertNotNull(donorList);
-        assertEquals(6, donorList.size());
+        assertEquals(8, donorList.size());
     }
 }
