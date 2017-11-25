@@ -1,8 +1,8 @@
 package com.company.jersey01;
 
-import com.google.inject.servlet.ServletModule;
 import com.company.jersey01.services.CharityService;
 import com.company.jersey01.services.DonorService;
+import com.google.inject.servlet.ServletModule;
 
 public class MainModule extends ServletModule {
 

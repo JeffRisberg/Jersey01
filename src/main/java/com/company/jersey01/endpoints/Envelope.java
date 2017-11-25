@@ -8,7 +8,7 @@ import java.util.List;
  * Envelope for responses.
  *
  * @author Jeff Risberg
- * @since 10/26/17
+ * @since 10/23/17
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Envelope {
@@ -18,6 +18,9 @@ public class Envelope {
     protected Integer offset;
     protected List<Error> errors;
 
+    /**
+     * Constructor
+     */
     public Envelope(Object data, Long totalCount, Integer limit, Integer offset, List<Error> errors) {
         this.data = data;
         this.totalCount = totalCount;
@@ -26,15 +29,24 @@ public class Envelope {
         this.errors = errors;
     }
 
+    /**
+     * Constructor
+     */
     public Envelope(Object data, List<Error> errors) {
         this.data = data;
         this.errors = errors;
     }
 
+    /**
+     * Constructor
+     */
     public Envelope(List<Error> errors) {
         this.errors = errors;
     }
 
+    /**
+     * Default Constructor
+     */
     public Envelope() {
     }
 

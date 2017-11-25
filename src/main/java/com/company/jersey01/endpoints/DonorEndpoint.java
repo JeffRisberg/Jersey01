@@ -1,7 +1,6 @@
 package com.company.jersey01.endpoints;
 
-import com.company.jersey01.common.model.jooq.query.FilterDesc;
-import com.company.jersey01.common.model.jooq.query.SortDesc;
+import com.company.common.FilterDesc;
 import com.company.jersey01.models.Donor;
 import com.company.jersey01.services.DonorService;
 
@@ -40,9 +39,8 @@ public class DonorEndpoint extends AbstractEndpoint {
 
         MultivaluedMap<String, String> queryParams = uriInfo.getQueryParameters();
         List<FilterDesc> filterDescs = this.parseFiltering(queryParams);
-        List<SortDesc> sortDescs = this.parseSortStr(sortStr);
 
-        List<Donor> data = donorService.getDonors(limit, offset, sortDescs, filterDescs);
+        List<Donor> data = donorService.getDonors(limit, offset, filterDescs);
         long totalCount = donorService.getDonorsCount(filterDescs);
 
         return createEntityListResponse(data, totalCount, limit, offset, null);

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * Provides the most important or commonly-used fields of the Error object.
  *
  * @author Jeff Risberg
- * @since 10/26/17
+ * @since 10/29/17
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Error {

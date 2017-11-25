@@ -1,10 +1,8 @@
 package com.company.jersey01.endpoints;
 
-import com.company.jersey01.common.model.jooq.query.FieldDesc;
-import com.company.jersey01.common.model.jooq.query.FilterDesc;
-import com.company.jersey01.common.model.jooq.query.FilterOperator;
-import com.company.jersey01.common.model.jooq.query.SortDesc;
-import com.company.jersey01.common.model.jooq.query.SortDirection;
+import com.company.common.FieldDesc;
+import com.company.common.FilterDesc;
+import com.company.common.FilterOperator;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
@@ -18,31 +16,6 @@ import java.util.Map;
  * @since 11/02/17
  */
 public class AbstractEndpoint {
-
-    /**
-     * Generate a sorting specification from the given sort string, such as "-field1,field2".
-     *
-     * @param sortStr
-     * @return list of Sort Descriptors
-     */
-    protected List<SortDesc> parseSortStr(String sortStr) {
-        List<SortDesc> sortDescs = new ArrayList<SortDesc>();
-
-        String[] fragments = sortStr.split(",");
-
-        for (int i = 0; i < fragments.length; i++) {
-            String fieldName = fragments[i];
-            SortDirection sortDir = SortDirection.Ascending;
-
-            if (fieldName.startsWith("-")) {
-                fieldName = fieldName.substring(1);
-                sortDir = SortDirection.Descending;
-            }
-
-            sortDescs.add(new SortDesc(new FieldDesc(fieldName), sortDir));
-        }
-        return sortDescs;
-    }
 
     /**
      * Generate a filtering specification from the query params of the request, of the
