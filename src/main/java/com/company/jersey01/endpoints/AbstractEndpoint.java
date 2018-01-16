@@ -1,12 +1,15 @@
-package com.incra.jersey01.controllers;
+package com.company.jersey01.endpoints;
 
-import com.incra.jersey01.common.model.jooq.query.*;
+import com.company.jersey01.common.model.jooq.query.FieldDesc;
+import com.company.jersey01.common.model.jooq.query.FilterDesc;
+import com.company.jersey01.common.model.jooq.query.FilterOperator;
+import com.company.jersey01.common.model.jooq.query.SortDesc;
+import com.company.jersey01.common.model.jooq.query.SortDirection;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +17,7 @@ import java.util.Map;
  * @author Jeff Risberg
  * @since 11/02/17
  */
-public class AbstractController {
+public class AbstractEndpoint {
 
     /**
      * Generate a sorting specification from the given sort string, such as "-field1,field2".
@@ -69,19 +72,19 @@ public class AbstractController {
      * @param data if null, triggers 404 status code.
      * @return Response
      */
-    protected Response createEntityResponse(Object data, List<Error> errors) {
-        List<Error> resultErrors = new ArrayList<Error>();
+    protected Response createEntityResponse(Object data, List<com.company.jersey01.endpoints.Error> errors) {
+        List<com.company.jersey01.endpoints.Error> resultErrors = new ArrayList<com.company.jersey01.endpoints.Error>();
 
         Envelope envelope = new Envelope(data, resultErrors);
 
         if (errors != null) {
-            for (Error error : errors) {
+            for (com.company.jersey01.endpoints.Error error : errors) {
                 resultErrors.add(error);
             }
         }
 
         if (data == null) {
-            resultErrors.add(new Error("Not found"));
+            resultErrors.add(new com.company.jersey01.endpoints.Error("Not found"));
 
             return Response.status(Response.Status.NOT_FOUND).entity(envelope).build();
         } else {
@@ -103,16 +106,16 @@ public class AbstractController {
             long totalCount,
             int limit,
             int offset,
-            List<Error> errors) {
+            List<com.company.jersey01.endpoints.Error> errors) {
         if (data == null) {
             throw new IllegalArgumentException("missing data");
         }
 
-        List<Error> resultErrors = new ArrayList<Error>();
+        List<com.company.jersey01.endpoints.Error> resultErrors = new ArrayList<com.company.jersey01.endpoints.Error>();
         Envelope envelope = new Envelope(data, totalCount, limit, offset, errors);
 
         if (errors != null) {
-            for (Error error : errors) {
+            for (com.company.jersey01.endpoints.Error error : errors) {
                 resultErrors.add(error);
             }
         }
@@ -126,19 +129,19 @@ public class AbstractController {
      * @param errors
      * @return
      */
-    protected Response createDeleteResponse(Object data, List<Error> errors)
+    protected Response createDeleteResponse(Object data, List<com.company.jersey01.endpoints.Error> errors)
             throws WebApplicationException {
-        List<Error> resultErrors = new ArrayList<Error>();
+        List<com.company.jersey01.endpoints.Error> resultErrors = new ArrayList<com.company.jersey01.endpoints.Error>();
         Envelope envelope = new Envelope(data, errors);
 
         if (errors != null) {
-            for (Error error : errors) {
+            for (com.company.jersey01.endpoints.Error error : errors) {
                 resultErrors.add(error);
             }
         }
 
         if (data == null) {
-            resultErrors.add(new Error("Not found"));
+            resultErrors.add(new com.company.jersey01.endpoints.Error("Not found"));
 
             throw new WebApplicationException(
                     Response.status(Response.Status.NOT_FOUND).entity(envelope).build());

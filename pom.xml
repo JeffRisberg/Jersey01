@@ -100,7 +100,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.incra.jersey01.Main</mainClass>
+                    <mainClass>com.company.jersey01.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>

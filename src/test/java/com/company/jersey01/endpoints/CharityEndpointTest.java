@@ -1,9 +1,9 @@
-package com.incra.jersey01.controllers;
+package com.company.jersey01.endpoints;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-import com.incra.jersey01.MainApplication;
+import com.company.jersey01.MainApplication;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
  * @author Jeff Risberg
  * @since 11/02/17
  */
-public class CharityControllerTest {
+public class CharityEndpointTest {
     private Server server;
     private WebTarget target;
     private ObjectMapper mapper;

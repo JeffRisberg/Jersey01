@@ -1,10 +1,9 @@
-package com.incra.jersey01.controllers;
+package com.company.jersey01.endpoints;
 
-import com.incra.jersey01.common.model.jooq.query.FilterDesc;
-import com.incra.jersey01.common.model.jooq.query.SortDesc;
-import com.incra.jersey01.models.Charity;
-import com.incra.jersey01.models.Donor;
-import com.incra.jersey01.services.CharityService;
+import com.company.jersey01.common.model.jooq.query.FilterDesc;
+import com.company.jersey01.common.model.jooq.query.SortDesc;
+import com.company.jersey01.models.Charity;
+import com.company.jersey01.services.CharityService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -12,12 +11,12 @@ import javax.ws.rs.core.*;
 import java.util.List;
 
 @Path("charities")
-public class CharityController extends AbstractController {
+public class CharityEndpoint extends AbstractEndpoint {
 
     protected CharityService charityService;
 
     @Inject
-    public CharityController(CharityService charityService) {
+    public CharityEndpoint(CharityService charityService) {
         this.charityService = charityService;
     }
 

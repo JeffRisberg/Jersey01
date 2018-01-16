@@ -1,10 +1,10 @@
-package com.incra.jersey01.services;
+package com.company.jersey01.services;
 
+import com.company.jersey01.common.model.jooq.query.FilterDesc;
+import com.company.jersey01.common.model.jooq.query.SortDesc;
+import com.company.jersey01.common.model.jooq.query.SortDirection;
+import com.company.jersey01.models.Charity;
 import com.google.inject.Singleton;
-import com.incra.jersey01.common.model.jooq.query.FilterDesc;
-import com.incra.jersey01.common.model.jooq.query.SortDesc;
-import com.incra.jersey01.common.model.jooq.query.SortDirection;
-import com.incra.jersey01.models.Charity;
 
 import java.util.ArrayList;
 import java.util.List;

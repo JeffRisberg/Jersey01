@@ -1,4 +1,4 @@
-package com.incra.jersey01;
+package com.company.jersey01;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
