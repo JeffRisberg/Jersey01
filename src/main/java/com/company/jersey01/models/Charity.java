@@ -20,6 +20,9 @@ public class Charity extends AbstractDatedEntity {
     @Column(name = "website")
     protected String website;
 
+    /**
+     * Constructor
+     */
     public Charity(Long id, String name, String ein, String website) {
         this.id = id;
         this.name = name;
