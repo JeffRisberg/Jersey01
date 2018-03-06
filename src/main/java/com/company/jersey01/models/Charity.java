@@ -1,5 +1,7 @@
 package com.company.jersey01.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -8,6 +10,7 @@ import javax.persistence.Table;
  * @author Jeff Risberg
  * @since 10/26/17
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "charities")
 public class Charity extends AbstractDatedEntity {
