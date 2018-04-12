@@ -24,7 +24,7 @@ public class Donor extends AbstractEntity {
     /**
      * Constructor
      */
-    public Donor(Long id, String firstName, String lastName) {
+    public Donor(Integer id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

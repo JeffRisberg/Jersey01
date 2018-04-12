@@ -26,7 +26,7 @@ public class Charity extends AbstractDatedEntity {
     /**
      * Constructor
      */
-    public Charity(Long id, String name, String ein, String website) {
+    public Charity(Integer id, String name, String ein, String website) {
         this.id = id;
         this.name = name;
         this.ein = ein;
