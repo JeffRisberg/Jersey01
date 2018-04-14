@@ -22,6 +22,12 @@ public class Donor extends AbstractEntity {
     protected String lastName;
 
     /**
+     * Default constructor
+     */
+    public Donor() {
+    }
+
+    /**
      * Constructor
      */
     public Donor(Integer id, String firstName, String lastName) {
@@ -44,5 +50,9 @@ public class Donor extends AbstractEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String toString() {
+        return "Donor[" + firstName + "/" + lastName + "]";
     }
 }
