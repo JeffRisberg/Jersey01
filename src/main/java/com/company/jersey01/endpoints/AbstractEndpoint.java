@@ -3,6 +3,7 @@ package com.company.jersey01.endpoints;
 import com.company.common.FieldDesc;
 import com.company.common.FilterDesc;
 import com.company.common.FilterOperator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
@@ -16,6 +17,8 @@ import java.util.Map;
  * @since 11/02/17
  */
 public class AbstractEndpoint {
+
+    protected static ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * Generate a filtering specification from the query params of the request, of the
