@@ -29,6 +29,7 @@ ext {
     hk2Version = '2.5.0-b44'
     junitVersion = '4.12'
     hibernateVersion = '4.3.11.Final'
+    jacksonVersion = '2.9.5'
 }
 
 dependencies {
@@ -36,7 +37,7 @@ dependencies {
     runtime "org.slf4j:slf4j-simple:$slf4jVersion"
     compile "org.projectlombok:lombok:$projectLombokVersion"
     compile "joda-time:joda-time:$jodaTimeVersion"
-    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.5"
+    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$jacksonVersion"
 
     compile "com.google.inject:guice:$guiceVersion"
     compile "com.google.inject.extensions:guice-servlet:$guiceVersion"
