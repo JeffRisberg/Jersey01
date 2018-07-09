@@ -66,7 +66,7 @@ public class CharityEndpoint extends AbstractEndpoint {
             System.out.println(jsonNode.get("ein") != null);
             System.out.println(jsonNode.get("website") != null);
 
-            Charity tempCharity = new Charity(123, "Dog Foundation", "99-12345", "http://www.dogs.com");
+            Charity tempCharity = new Charity(123L, "Dog Foundation", "99-12345", "http://www.dogs.com");
             return Response.status(Response.Status.OK).entity(tempCharity).build();
         } catch (IOException e) {
             e.printStackTrace();

@@ -12,8 +12,8 @@
     <orderEntry type="library" name="Gradle: com.zaxxer:HikariCP:2.7.7" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Gradle: org.projectlombok:lombok:1.16.20" level="project" />
-    <orderEntry type="library" name="Gradle: joda-time:joda-time:2.10" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.slf4j:slf4j-simple:1.7.25" level="project" />
+    <orderEntry type="library" name="Gradle: joda-time:joda-time:2.10" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.9.5" level="project" />
     <orderEntry type="library" name="Gradle: com.google.inject.extensions:guice-servlet:4.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.hk2:guice-bridge:2.5.0-b44" level="project" />
