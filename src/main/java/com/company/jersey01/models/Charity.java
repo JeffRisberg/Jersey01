@@ -15,11 +15,11 @@ import javax.persistence.Table;
  * @since 10/26/17
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "charities")
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Charity extends AbstractDatedEntity {
 
     @Column(name = "name")
