@@ -1,9 +1,9 @@
 package com.company.jersey01.endpoints;
 
+import com.company.jersey01.MainApplication;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-import com.company.jersey01.MainApplication;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -29,115 +29,115 @@ import static org.junit.Assert.*;
  * @since 11/02/17
  */
 public class CharityEndpointTest {
-    private Server server;
-    private WebTarget target;
-    private ObjectMapper mapper;
+  private Server server;
+  private WebTarget target;
+  private ObjectMapper mapper;
 
-    @Before
-    public void setUp() throws Exception {
-        server = new Server(8080);
+  @Before
+  public void setUp() throws Exception {
+    server = new Server(8080);
 
-        ServletContextHandler sch = new ServletContextHandler(server, "/");
-        ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
-        jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, MainApplication.class.getCanonicalName());
-        sch.addServlet(jerseyServletHolder, "/*");
+    ServletContextHandler sch = new ServletContextHandler(server, "/");
+    ServletHolder jerseyServletHolder = new ServletHolder(new ServletContainer());
+    jerseyServletHolder.setInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, MainApplication.class.getCanonicalName());
+    sch.addServlet(jerseyServletHolder, "/*");
 
-        server.start();
+    server.start();
 
-        Client c = ClientBuilder.newClient();
+    Client c = ClientBuilder.newClient();
 
-        c.register(JacksonJaxbJsonProvider.class);
+    c.register(JacksonJaxbJsonProvider.class);
 
-        target = c.target("http://localhost:8080/");
+    target = c.target("http://localhost:8080/");
 
-        mapper = new ObjectMapper();
+    mapper = new ObjectMapper();
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    server.stop();
+  }
+
+  @Test
+  public void testFetchValid() {
+    Invocation.Builder invocationBuilder = target.path("charities/1").request().accept(MediaType.APPLICATION_JSON);
+
+    try {
+      String responseMsg = invocationBuilder.get(String.class);
+
+      JsonNode root = mapper.readTree(responseMsg);
+      String name = root.at("/data/name").asText();
+      assertEquals("Red Cross", name);
+    } catch (Exception e) {
+      fail();
     }
+  }
 
-    @After
-    public void tearDown() throws Exception {
-        server.stop();
+  @Test
+  public void testFetchMissing() {
+    Invocation.Builder invocationBuilder = target.path("charities/999").request().accept(MediaType.APPLICATION_JSON);
+
+    try {
+      String responseMsg = invocationBuilder.get(String.class);
+
+      assertNotNull(responseMsg);
+
+      fail();
+    } catch (NotFoundException e) {
+      // this is expected
     }
+  }
 
     @Test
-    public void testFetchValid() {
-        Invocation.Builder invocationBuilder = target.path("charities/1").request().accept(MediaType.APPLICATION_JSON);
+  public void testFetchList() {
+    Invocation.Builder invocationBuilder = target.path("charities").request().accept(MediaType.APPLICATION_JSON);
 
-        try {
-            String responseMsg = invocationBuilder.get(String.class);
+    try {
+      String responseMsg = invocationBuilder.get(String.class);
 
-            JsonNode root = mapper.readTree(responseMsg);
-            String name = root.at("/data/name").asText();
-            assertEquals("Red Cross", name);
-        } catch (Exception e) {
-            fail();
-        }
+      JsonNode root = mapper.readTree(responseMsg);
+
+      String name0 = root.at("/data/0/name").asText();
+      assertEquals("Red Cross", name0);
+
+      String name1 = root.at("/data/1/name").asText();
+      assertEquals("ASPCA", name1);
+
+      int totalCount = root.at("/totalCount").asInt();
+      assertEquals(8, totalCount);
+    } catch (Exception e) {
+      fail();
     }
+  }
 
     @Test
-    public void testFetchMissing() {
-        Invocation.Builder invocationBuilder = target.path("charities/999").request().accept(MediaType.APPLICATION_JSON);
+  public void testDeleteValid() {
+    Invocation.Builder invocationBuilder = target.path("charities/1").request().accept(MediaType.APPLICATION_JSON);
 
-        try {
-            String responseMsg = invocationBuilder.get(String.class);
+    try {
+      String responseMsg = invocationBuilder.delete(String.class);
 
-            assertNotNull(responseMsg);
+      JsonNode root = mapper.readTree(responseMsg);
+      String errors = root.at("/errors/0").asText();
 
-            fail();
-        } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+      assertEquals("", errors);
+    } catch (Exception e) {
+      fail();
     }
+  }
 
     @Test
-    public void testFetchList() {
-        Invocation.Builder invocationBuilder = target.path("charities").request().accept(MediaType.APPLICATION_JSON);
+  public void testDeleteMissing() {
+    Invocation.Builder invocationBuilder = target.path("charities/999").request().accept(MediaType.APPLICATION_JSON);
 
-        try {
-            String responseMsg = invocationBuilder.get(String.class);
+    try {
+      String responseMsg = invocationBuilder.delete(String.class);
 
-            JsonNode root = mapper.readTree(responseMsg);
+      fail();
+    } catch (WebApplicationException wae) {
+      Response response = wae.getResponse();
 
-            String name0 = root.at("/data/0/name").asText();
-            assertEquals("Red Cross", name0);
-
-            String name1 = root.at("/data/1/name").asText();
-            assertEquals("ASPCA", name1);
-
-            int totalCount = root.at("/totalCount").asInt();
-            assertEquals(7, totalCount);
-        } catch (Exception e) {
-            fail();
-        }
+      assertEquals(404, response.getStatus());
     }
-
-    @Test
-    public void testDeleteValid() {
-        Invocation.Builder invocationBuilder = target.path("charities/1").request().accept(MediaType.APPLICATION_JSON);
-
-        try {
-            String responseMsg = invocationBuilder.delete(String.class);
-
-            JsonNode root = mapper.readTree(responseMsg);
-            String errors = root.at("/errors/0").asText();
-
-            assertEquals("", errors);
-        } catch (Exception e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testDeleteMissing() {
-        Invocation.Builder invocationBuilder = target.path("charities/999").request().accept(MediaType.APPLICATION_JSON);
-
-        try {
-            String responseMsg = invocationBuilder.delete(String.class);
-
-            fail();
-        } catch (WebApplicationException wae) {
-            Response response = wae.getResponse();
-
-            assertEquals(404, response.getStatus());
-        }
-    }
+  }
 }

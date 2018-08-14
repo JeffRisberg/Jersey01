@@ -5,12 +5,12 @@ package com.company.common;
  * @since 12/11/15
  */
 public enum FilterOperator {
-    Equal,
-    NotEqual,
-    Like,
-    LikeIgnoreCase,
-    GreaterThan,
-    GreaterThanOrEqualTo,
-    LessThan,
-    LessThanOrEqualTo
+  Equal,
+  NotEqual,
+  Like,
+  LikeIgnoreCase,
+  GreaterThan,
+  GreaterThanOrEqualTo,
+  LessThan,
+  LessThanOrEqualTo
 }

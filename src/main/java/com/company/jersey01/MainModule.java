@@ -6,9 +6,9 @@ import com.google.inject.servlet.ServletModule;
 
 public class MainModule extends ServletModule {
 
-    @Override
-    protected void configureServlets() {
-        bind(CharityService.class);
-        bind(DonorService.class);
-    }
+  @Override
+  protected void configureServlets() {
+    bind(CharityService.class);
+    bind(DonorService.class);
+  }
 }

@@ -21,16 +21,16 @@ import javax.persistence.Table;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Donor extends AbstractEntity {
 
-    @Column(name = "first_name")
-    protected String firstName;
+  @Column(name = "first_name")
+  protected String firstName;
 
-    @Column(name = "last_name")
-    protected String lastName;
+  @Column(name = "last_name")
+  protected String lastName;
 
-    // The Lombok @AllArgsConstructor doesn't include superclass fields, so we need this
-    public Donor(Long id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+  // The Lombok @AllArgsConstructor doesn't include superclass fields, so we need this
+  public Donor(Long id, String firstName, String lastName) {
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 }
