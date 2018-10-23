@@ -1,4 +1,6 @@
-/target
+target
 .idea/workspace.xml
 .idea/tasks.xml
-/.gradle
+.gradle
+.idea/libraries
+
