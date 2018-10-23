@@ -15,26 +15,26 @@ import static org.junit.Assert.assertNotNull;
  */
 public class DonorServiceTest {
 
-    private DonorService donorService;
+  private DonorService donorService;
 
-    @Before
-    public void setUp() throws Exception {
-        donorService = new DonorService();
-    }
+  @Before
+  public void setUp() throws Exception {
+    donorService = new DonorService();
+  }
 
-    @Test
-    public void testGetOne() {
-        Donor donor = donorService.getDonor(1);
+  @Test
+  public void testGetOne() {
+    Donor donor = donorService.getDonor(1);
 
-        assertEquals("John", donor.getFirstName());
-        assertEquals("Smith", donor.getLastName());
-    }
+    assertEquals("John", donor.getFirstName());
+    assertEquals("Smith", donor.getLastName());
+  }
 
-    @Test
-    public void testGetList() {
-        List<Donor> donorList = donorService.getDonors(50, 0, null);
+  @Test
+  public void testGetList() {
+    List<Donor> donorList = donorService.getDonors(50, 0, null);
 
-        assertNotNull(donorList);
-        assertEquals(8, donorList.size());
-    }
+    assertNotNull(donorList);
+    assertEquals(8, donorList.size());
+  }
 }

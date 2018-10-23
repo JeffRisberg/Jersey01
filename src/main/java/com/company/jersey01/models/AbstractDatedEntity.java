@@ -1,5 +1,8 @@
 package com.company.jersey01.models;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
@@ -10,37 +13,24 @@ import java.util.Date;
  * @author Jeff Risberg
  * @since 10/22/17
  */
+@Data
 @MappedSuperclass
+@EqualsAndHashCode(callSuper = true)
 public abstract class AbstractDatedEntity extends AbstractEntity {
-    @Column(name = "date_created")
-    protected Date dateCreated;
 
-    @Column(name = "last_updated")
-    protected Date lastUpdated;
+  @Column(name = "date_created")
+  protected Date dateCreated;
 
-    public Date getDateCreated() {
-        return dateCreated;
-    }
+  @Column(name = "last_updated")
+  protected Date lastUpdated;
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+  @PrePersist
+  protected void onCreate() {
+    dateCreated = new Date();
+  }
 
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        dateCreated = new Date();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        lastUpdated = new Date();
-    }
+  @PreUpdate
+  protected void onUpdate() {
+    lastUpdated = new Date();
+  }
 }
