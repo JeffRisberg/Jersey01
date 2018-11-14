@@ -28,7 +28,7 @@ ext {
   jerseyVersion = '2.27'
   hk2Version = '2.5.0-b44'
   junitVersion = '4.12'
-  hibernateVersion = '5.3.7-Final'
+  hibernateVersion = '5.3.7.Final'
   jacksonVersion = '2.9.6'
 }
 
@@ -61,7 +61,7 @@ dependencies {
   compile "org.glassfish.hk2:hk2:$hk2Version"
   compile "org.glassfish.hk2:guice-bridge:$hk2Version"
 
-  compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+  compile "org.hibernate:hibernate-core:$hibernateVersion"
   compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
   compile "com.zaxxer:HikariCP:2.7.7"
   compile "mysql:mysql-connector-java:5.1.45"
