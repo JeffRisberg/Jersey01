@@ -38,10 +38,10 @@
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.9.6" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.9.6" level="project" />
-    <orderEntry type="library" name="Gradle: org.glassfish.hk2:hk2-runlevel:2.5.0-b44" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.hk2:config-types:2.5.0-b44" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.hk2:hk2-config:2.5.0-b44" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.hk2:hk2-core:2.5.0-b44" level="project" />
+    <orderEntry type="library" name="Gradle: org.glassfish.hk2:hk2-runlevel:2.5.0-b44" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.hk2:hk2-locator:2.5.0-b44" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.hk2:hk2-api:2.5.0-b44" level="project" />
     <orderEntry type="library" name="Gradle: org.glassfish.hk2:hk2-utils:2.5.0-b44" level="project" />
@@ -74,15 +74,15 @@
     <orderEntry type="library" name="Gradle: org.dom4j:dom4j:2.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.6" level="project" />
-    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-util:9.4.8.v20171121" level="project" />
-    <orderEntry type="library" name="Gradle: org.glassfish.hk2.external:aopalliance-repackaged:2.5.0-b44" level="project" />
-    <orderEntry type="library" name="Gradle: org.jvnet:tiger-types:1.4" level="project" />
-    <orderEntry type="library" name="Gradle: org.glassfish.hk2.external:asm-all-repackaged:2.5.0-b44" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: org.checkerframework:checker-compat-qual:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.1.3" level="project" />
     <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.14" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-util:9.4.8.v20171121" level="project" />
+    <orderEntry type="library" name="Gradle: org.glassfish.hk2.external:aopalliance-repackaged:2.5.0-b44" level="project" />
+    <orderEntry type="library" name="Gradle: org.jvnet:tiger-types:1.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.glassfish.hk2.external:asm-all-repackaged:2.5.0-b44" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Jersey01_main" />
 </module>
