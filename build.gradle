@@ -23,13 +23,13 @@ ext {
   slf4jVersion = '1.7.25'
   projectLombokVersion = '1.16.20'
   jodaTimeVersion = '2.10'
-  guiceVersion = '4.2.0'
+  guiceVersion = '4.2.2'
   jettyVersion = '9.4.8.v20171121'
   jerseyVersion = '2.27'
   hk2Version = '2.5.0-b44'
-  junitVersion = '4.12'
   hibernateVersion = '5.3.7.Final'
   jacksonVersion = '2.9.6'
+  junitVersion = '4.12'
 }
 
 test {
@@ -63,6 +63,8 @@ dependencies {
 
   compile "org.hibernate:hibernate-core:$hibernateVersion"
   compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
+  compile 'org.glassfish:javax.el:3.0.1-b09'
+
   compile "com.zaxxer:HikariCP:2.7.9"
   compile "mysql:mysql-connector-java:5.1.47"
 
