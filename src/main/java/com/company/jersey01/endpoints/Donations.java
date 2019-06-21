@@ -1,17 +1,15 @@
 package com.company.jersey01.endpoints;
 
 import com.company.common.FilterDesc;
-import com.company.jersey01.models.Donation;
-import com.company.jersey01.models.Donor;
+import com.company.jersey01.models.DonationEntity;
 import com.company.jersey01.services.DonationService;
-import com.company.jersey01.services.DonorService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
 
-@Path("donations")
+@Path("donationEntities")
 public class Donations extends AbstractEndpoint {
 
   protected DonationService donationService;
@@ -26,7 +24,7 @@ public class Donations extends AbstractEndpoint {
   @Produces(MediaType.APPLICATION_JSON)
   public Response fetch(@PathParam("id") Integer id) {
 
-    Donation data = donationService.getDonation(id);
+    DonationEntity data = donationService.getDonation(id);
 
     return createEntityResponse(data, null);
   }
@@ -42,7 +40,7 @@ public class Donations extends AbstractEndpoint {
     MultivaluedMap<String, String> queryParams = uriInfo.getQueryParameters();
     List<FilterDesc> filterDescs = this.parseFiltering(queryParams);
 
-    List<Donation> data = donationService.getDonations(limit, offset, filterDescs);
+    List<DonationEntity> data = donationService.getDonations(limit, offset, filterDescs);
     long totalCount = donationService.getDonationsCount(filterDescs);
 
     return createEntityListResponse(data, totalCount, limit, offset, null);
@@ -53,7 +51,7 @@ public class Donations extends AbstractEndpoint {
   @Produces(MediaType.APPLICATION_JSON)
   public Response delete(@PathParam("id") Integer id) {
 
-    Donation data = donationService.getDonation(id);
+    DonationEntity data = donationService.getDonation(id);
 
     return createDeleteResponse(data, null);
   }

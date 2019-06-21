@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
  * @author Jeff Risberg
  * @since 11/02/17
  */
-public class DonorEndpointTest {
+public class DonorEntityEndpointTest {
   private Server server;
   private WebTarget target;
   private ObjectMapper mapper;

@@ -1,7 +1,7 @@
 package com.company.jersey01.services;
 
 import com.company.common.FilterDesc;
-import com.company.jersey01.models.Donor;
+import com.company.jersey01.models.DonorEntity;
 import com.google.inject.Singleton;
 
 import java.util.ArrayList;
@@ -14,32 +14,32 @@ import java.util.List;
 @Singleton
 public class DonorService {
 
-  protected List<Donor> donors = new ArrayList<Donor>();
+  protected List<DonorEntity> donors = new ArrayList<DonorEntity>();
 
   public DonorService() {
-    donors.add(new Donor(1L, "John", "Smith"));
-    donors.add(new Donor(2L, "Bill", "Jones"));
-    donors.add(new Donor(3L, "Tom", "Kennedy"));
-    donors.add(new Donor(4L, "Jack", "Underhill"));
-    donors.add(new Donor(5L, "Sally", "Starr"));
-    donors.add(new Donor(6L, "Henry", "Adams"));
-    donors.add(new Donor(7L, "Paul", "Jones"));
-    donors.add(new Donor(8L, "Steven", "Hawking"));
+    donors.add(new DonorEntity(1L, "John", "Smith"));
+    donors.add(new DonorEntity(2L, "Bill", "Jones"));
+    donors.add(new DonorEntity(3L, "Tom", "Kennedy"));
+    donors.add(new DonorEntity(4L, "Jack", "Underhill"));
+    donors.add(new DonorEntity(5L, "Sally", "Starr"));
+    donors.add(new DonorEntity(6L, "Henry", "Adams"));
+    donors.add(new DonorEntity(7L, "Paul", "Jones"));
+    donors.add(new DonorEntity(8L, "Steven", "Hawking"));
   }
 
-  public Donor getDonor(long id) {
-    for (Donor donor : donors) {
+  public DonorEntity getDonor(long id) {
+    for (DonorEntity donor : donors) {
       if (donor.getId() == id)
         return donor;
     }
     return null;
   }
 
-  public List<Donor> getDonors(int limit, int offset, List<FilterDesc> filterDescs) {
-    List<Donor> result = applyFilter(filterDescs);
+  public List<DonorEntity> getDonors(int limit, int offset, List<FilterDesc> filterDescs) {
+    List<DonorEntity> result = applyFilter(filterDescs);
 
     if (offset > 0 && offset >= result.size())
-      result = new ArrayList<Donor>();
+      result = new ArrayList<DonorEntity>();
     else if (offset > 0)
       result = result.subList(offset, result.size());
 
@@ -47,15 +47,15 @@ public class DonorService {
   }
 
   public long getDonorsCount(List<FilterDesc> filterDescs) {
-    List<Donor> result = applyFilter(filterDescs);
+    List<DonorEntity> result = applyFilter(filterDescs);
 
     return (long) result.size();
   }
 
-  private List<Donor> applyFilter(List<FilterDesc> filterDescs) {
-    List<Donor> result = new ArrayList<Donor>();
+  private List<DonorEntity> applyFilter(List<FilterDesc> filterDescs) {
+    List<DonorEntity> result = new ArrayList<DonorEntity>();
 
-    for (Donor donor : donors) {
+    for (DonorEntity donor : donors) {
       boolean accepted = true;
 
       if (filterDescs != null) {

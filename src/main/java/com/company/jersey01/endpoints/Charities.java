@@ -1,7 +1,7 @@
 package com.company.jersey01.endpoints;
 
 import com.company.common.FilterDesc;
-import com.company.jersey01.models.Charity;
+import com.company.jersey01.models.CharityEntity;
 import com.company.jersey01.services.CharityService;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -26,7 +26,7 @@ public class Charities extends AbstractEndpoint {
   @Produces(MediaType.APPLICATION_JSON)
   public Response fetch(@PathParam("id") Integer id) {
 
-    Charity data = charityService.getCharity(id);
+    CharityEntity data = charityService.getCharity(id);
 
     return createEntityResponse(data, null);
   }
@@ -42,7 +42,7 @@ public class Charities extends AbstractEndpoint {
     MultivaluedMap<String, String> queryParams = uriInfo.getQueryParameters();
     List<FilterDesc> filterDescs = this.parseFiltering(queryParams);
 
-    List<Charity> data = charityService.getCharities(limit, offset, filterDescs);
+    List<CharityEntity> data = charityService.getCharities(limit, offset, filterDescs);
     long totalCount = charityService.getCharitiesCount(filterDescs);
 
     return createEntityListResponse(data, totalCount, limit, offset, null);
@@ -54,11 +54,11 @@ public class Charities extends AbstractEndpoint {
   @Produces(MediaType.APPLICATION_JSON)
   public Response update(String requestBody) {
     try {
-      Charity charity = objectMapper.readValue(requestBody, Charity.class);
+      CharityEntity charityEntity = objectMapper.readValue(requestBody, CharityEntity.class);
       JsonNode jsonNode = objectMapper.readValue(requestBody, JsonNode.class);
 
       System.out.println(requestBody);
-      System.out.println(charity);
+      System.out.println(charityEntity);
       System.out.println(jsonNode);
 
       System.out.println(jsonNode.get("id") != null);
@@ -66,8 +66,8 @@ public class Charities extends AbstractEndpoint {
       System.out.println(jsonNode.get("ein") != null);
       System.out.println(jsonNode.get("website") != null);
 
-      Charity tempCharity = new Charity(123L, "Dog Foundation", "99-12345", "http://www.dogs.com");
-      return Response.status(Response.Status.OK).entity(tempCharity).build();
+      CharityEntity tempCharityEntity = new CharityEntity(123L, "Dog Foundation", "99-12345", "http://www.dogs.com");
+      return Response.status(Response.Status.OK).entity(tempCharityEntity).build();
     } catch (IOException e) {
       e.printStackTrace();
       return Response.status(Response.Status.BAD_REQUEST).build();
@@ -79,7 +79,7 @@ public class Charities extends AbstractEndpoint {
   @Produces(MediaType.APPLICATION_JSON)
   public Response delete(@PathParam("id") Integer id) {
 
-    Charity data = charityService.getCharity(id);
+    CharityEntity data = charityService.getCharity(id);
 
     return createDeleteResponse(data, null);
   }

@@ -1,7 +1,7 @@
 package com.company.jersey01.services;
 
 import com.company.common.FilterDesc;
-import com.company.jersey01.models.Donation;
+import com.company.jersey01.models.DonationEntity;
 import com.google.inject.Singleton;
 
 import java.util.ArrayList;
@@ -14,24 +14,24 @@ import java.util.List;
 @Singleton
 public class DonationService {
 
-  protected List<Donation> donations = new ArrayList<Donation>();
+  protected List<DonationEntity> donationEntities = new ArrayList<DonationEntity>();
 
   public DonationService() {
   }
 
-  public Donation getDonation(long id) {
-    for (Donation donation : donations) {
-      if (donation.getId() == id)
-        return donation;
+  public DonationEntity getDonation(long id) {
+    for (DonationEntity donationEntity : donationEntities) {
+      if (donationEntity.getId() == id)
+        return donationEntity;
     }
     return null;
   }
 
-  public List<Donation> getDonations(int limit, int offset, List<FilterDesc> filterDescs) {
-    List<Donation> result = applyFilter(filterDescs);
+  public List<DonationEntity> getDonations(int limit, int offset, List<FilterDesc> filterDescs) {
+    List<DonationEntity> result = applyFilter(filterDescs);
 
     if (offset > 0 && offset >= result.size())
-      result = new ArrayList<Donation>();
+      result = new ArrayList<DonationEntity>();
     else if (offset > 0)
       result = result.subList(offset, result.size());
 
@@ -39,15 +39,15 @@ public class DonationService {
   }
 
   public long getDonationsCount(List<FilterDesc> filterDescs) {
-    List<Donation> result = applyFilter(filterDescs);
+    List<DonationEntity> result = applyFilter(filterDescs);
 
     return (long) result.size();
   }
 
-  private List<Donation> applyFilter(List<FilterDesc> filterDescs) {
-    List<Donation> result = new ArrayList<Donation>();
+  private List<DonationEntity> applyFilter(List<FilterDesc> filterDescs) {
+    List<DonationEntity> result = new ArrayList<DonationEntity>();
 
-    for (Donation donation : donations) {
+    for (DonationEntity donationEntity : donationEntities) {
       boolean accepted = true;
 
       if (filterDescs != null) {
@@ -55,7 +55,7 @@ public class DonationService {
           switch (filterDesc.getField().getName()) {
             /*
             case "amount":
-              if (!donation.getAmount().equalsIgnoreCase((String) filterDesc.getValue()))
+              if (!donationEntity.getAmount().equalsIgnoreCase((String) filterDesc.getValue()))
                 accepted = false;
               break;
               */
@@ -64,7 +64,7 @@ public class DonationService {
       }
 
       if (accepted)
-        result.add(donation);
+        result.add(donationEntity);
     }
 
     return result;

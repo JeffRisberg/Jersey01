@@ -17,15 +17,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Donation extends AbstractEntity {
+public class DonationEntity extends AbstractEntity {
 
   @ManyToOne()
   @JoinColumn(name = "donor_id")
-  protected Donor donor;
+  protected DonorEntity donor;
 
   @ManyToOne()
   @JoinColumn(name = "charity_id")
-  protected Charity charity;
+  protected CharityEntity charityEntity;
 
   @Column(name = "amount")
   protected float amount;

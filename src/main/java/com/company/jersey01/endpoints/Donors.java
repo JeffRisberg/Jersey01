@@ -1,7 +1,7 @@
 package com.company.jersey01.endpoints;
 
 import com.company.common.FilterDesc;
-import com.company.jersey01.models.Donor;
+import com.company.jersey01.models.DonorEntity;
 import com.company.jersey01.services.DonorService;
 
 import javax.inject.Inject;
@@ -24,7 +24,7 @@ public class Donors extends AbstractEndpoint {
   @Produces(MediaType.APPLICATION_JSON)
   public Response fetch(@PathParam("id") Integer id) {
 
-    Donor data = donorService.getDonor(id);
+    DonorEntity data = donorService.getDonor(id);
 
     return createEntityResponse(data, null);
   }
@@ -40,7 +40,7 @@ public class Donors extends AbstractEndpoint {
     MultivaluedMap<String, String> queryParams = uriInfo.getQueryParameters();
     List<FilterDesc> filterDescs = this.parseFiltering(queryParams);
 
-    List<Donor> data = donorService.getDonors(limit, offset, filterDescs);
+    List<DonorEntity> data = donorService.getDonors(limit, offset, filterDescs);
     long totalCount = donorService.getDonorsCount(filterDescs);
 
     return createEntityListResponse(data, totalCount, limit, offset, null);
@@ -51,7 +51,7 @@ public class Donors extends AbstractEndpoint {
   @Produces(MediaType.APPLICATION_JSON)
   public Response delete(@PathParam("id") Integer id) {
 
-    Donor data = donorService.getDonor(id);
+    DonorEntity data = donorService.getDonor(id);
 
     return createDeleteResponse(data, null);
   }

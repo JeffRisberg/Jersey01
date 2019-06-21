@@ -1,6 +1,6 @@
 package com.company.jersey01.services;
 
-import com.company.jersey01.models.Charity;
+import com.company.jersey01.models.CharityEntity;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,16 +24,16 @@ public class CharityServiceTest {
 
   @Test
   public void testGetOne() {
-    Charity charity = charityService.getCharity(1);
+    CharityEntity charityEntity = charityService.getCharity(1);
 
-    assertEquals("Red Cross", charity.getName());
+    assertEquals("Red Cross", charityEntity.getName());
   }
 
   @Test
   public void testGetList() {
-    List<Charity> charityList = charityService.getCharities(50, 0, null);
+    List<CharityEntity> charityEntityList = charityService.getCharities(50, 0, null);
 
-    assertNotNull(charityList);
-    assertEquals(8, charityList.size());
+    assertNotNull(charityEntityList);
+    assertEquals(8, charityEntityList.size());
   }
 }
