@@ -12,10 +12,10 @@ import javax.ws.rs.core.Response;
  */
 @Singleton
 @Path("hello")
-public class HelloEndpoint {
+public class Hello {
 
   @Inject
-  public HelloEndpoint() {
+  public Hello() {
   }
 
   @GET

@@ -1,7 +1,9 @@
 package com.company.jersey01.endpoints;
 
 import com.company.common.FilterDesc;
+import com.company.jersey01.models.Donation;
 import com.company.jersey01.models.Donor;
+import com.company.jersey01.services.DonationService;
 import com.company.jersey01.services.DonorService;
 
 import javax.inject.Inject;
@@ -9,14 +11,14 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
 
-@Path("donors")
-public class DonorEndpoint extends AbstractEndpoint {
+@Path("donations")
+public class Donations extends AbstractEndpoint {
 
-  protected DonorService donorService;
+  protected DonationService donationService;
 
   @Inject
-  public DonorEndpoint(DonorService donorService) {
-    this.donorService = donorService;
+  public Donations(DonationService donationService) {
+    this.donationService = donationService;
   }
 
   @GET
@@ -24,7 +26,7 @@ public class DonorEndpoint extends AbstractEndpoint {
   @Produces(MediaType.APPLICATION_JSON)
   public Response fetch(@PathParam("id") Integer id) {
 
-    Donor data = donorService.getDonor(id);
+    Donation data = donationService.getDonation(id);
 
     return createEntityResponse(data, null);
   }
@@ -40,8 +42,8 @@ public class DonorEndpoint extends AbstractEndpoint {
     MultivaluedMap<String, String> queryParams = uriInfo.getQueryParameters();
     List<FilterDesc> filterDescs = this.parseFiltering(queryParams);
 
-    List<Donor> data = donorService.getDonors(limit, offset, filterDescs);
-    long totalCount = donorService.getDonorsCount(filterDescs);
+    List<Donation> data = donationService.getDonations(limit, offset, filterDescs);
+    long totalCount = donationService.getDonationsCount(filterDescs);
 
     return createEntityListResponse(data, totalCount, limit, offset, null);
   }
@@ -51,7 +53,7 @@ public class DonorEndpoint extends AbstractEndpoint {
   @Produces(MediaType.APPLICATION_JSON)
   public Response delete(@PathParam("id") Integer id) {
 
-    Donor data = donorService.getDonor(id);
+    Donation data = donationService.getDonation(id);
 
     return createDeleteResponse(data, null);
   }

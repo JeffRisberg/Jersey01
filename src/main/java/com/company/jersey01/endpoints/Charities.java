@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.List;
 
 @Path("charities")
-public class CharityEndpoint extends AbstractEndpoint {
+public class Charities extends AbstractEndpoint {
 
   protected CharityService charityService;
 
   @Inject
-  public CharityEndpoint(CharityService charityService) {
+  public Charities(CharityService charityService) {
     this.charityService = charityService;
   }
 

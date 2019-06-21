@@ -17,14 +17,6 @@ public class DonationService {
   protected List<Donation> donations = new ArrayList<Donation>();
 
   public DonationService() {
-    donations.add(new Donation(1L, "John", "Smith"));
-    donations.add(new Donation(2L, "Bill", "Jones"));
-    donations.add(new Donation(3L, "Tom", "Kennedy"));
-    donations.add(new Donation(4L, "Jack", "Underhill"));
-    donations.add(new Donation(5L, "Sally", "Starr"));
-    donations.add(new Donation(6L, "Henry", "Adams"));
-    donations.add(new Donation(7L, "Paul", "Jones"));
-    donations.add(new Donation(8L, "Steven", "Hawking"));
   }
 
   public Donation getDonation(long id) {
@@ -61,10 +53,12 @@ public class DonationService {
       if (filterDescs != null) {
         for (FilterDesc filterDesc : filterDescs) {
           switch (filterDesc.getField().getName()) {
+            /*
             case "amount":
               if (!donation.getAmount().equalsIgnoreCase((String) filterDesc.getValue()))
                 accepted = false;
               break;
+              */
           }
         }
       }
