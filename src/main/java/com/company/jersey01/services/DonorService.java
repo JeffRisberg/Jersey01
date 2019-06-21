@@ -1,6 +1,6 @@
 package com.company.jersey01.services;
 
-import com.company.common.FilterDesc;
+import com.company.common.FilterDescription;
 import com.company.jersey01.models.DonorEntity;
 import com.google.inject.Singleton;
 
@@ -35,7 +35,7 @@ public class DonorService {
     return null;
   }
 
-  public List<DonorEntity> getDonors(int limit, int offset, List<FilterDesc> filterDescs) {
+  public List<DonorEntity> getDonors(int limit, int offset, List<FilterDescription> filterDescs) {
     List<DonorEntity> result = applyFilter(filterDescs);
 
     if (offset > 0 && offset >= result.size())
@@ -46,21 +46,21 @@ public class DonorService {
     return result;
   }
 
-  public long getDonorsCount(List<FilterDesc> filterDescs) {
+  public long getDonorsCount(List<FilterDescription> filterDescs) {
     List<DonorEntity> result = applyFilter(filterDescs);
 
     return (long) result.size();
   }
 
-  private List<DonorEntity> applyFilter(List<FilterDesc> filterDescs) {
+  private List<DonorEntity> applyFilter(List<FilterDescription> filterDescs) {
     List<DonorEntity> result = new ArrayList<DonorEntity>();
 
     for (DonorEntity donor : donors) {
       boolean accepted = true;
 
       if (filterDescs != null) {
-        for (FilterDesc filterDesc : filterDescs) {
-          switch (filterDesc.getField().getName()) {
+        for (FilterDescription filterDesc : filterDescs) {
+          switch (filterDesc.getField()) {
             case "firstName":
               if (!donor.getFirstName().equalsIgnoreCase((String) filterDesc.getValue()))
                 accepted = false;

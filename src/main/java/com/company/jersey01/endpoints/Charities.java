@@ -1,6 +1,6 @@
 package com.company.jersey01.endpoints;
 
-import com.company.common.FilterDesc;
+import com.company.common.FilterDescription;
 import com.company.jersey01.models.CharityEntity;
 import com.company.jersey01.services.CharityService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -40,7 +40,7 @@ public class Charities extends AbstractEndpoint {
     @Context UriInfo uriInfo) {
 
     MultivaluedMap<String, String> queryParams = uriInfo.getQueryParameters();
-    List<FilterDesc> filterDescs = this.parseFiltering(queryParams);
+    List<FilterDescription> filterDescs = this.parseFiltering(queryParams);
 
     List<CharityEntity> data = charityService.getCharities(limit, offset, filterDescs);
     long totalCount = charityService.getCharitiesCount(filterDescs);

@@ -8,6 +8,7 @@ package com.company.common;
 public enum FilterOperator {
   none,
   eq,
+  neq,
   like,
   gt,
   lt,

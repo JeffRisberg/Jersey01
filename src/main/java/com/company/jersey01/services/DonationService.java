@@ -1,6 +1,6 @@
 package com.company.jersey01.services;
 
-import com.company.common.FilterDesc;
+import com.company.common.FilterDescription;
 import com.company.jersey01.models.DonationEntity;
 import com.google.inject.Singleton;
 
@@ -27,7 +27,7 @@ public class DonationService {
     return null;
   }
 
-  public List<DonationEntity> getDonations(int limit, int offset, List<FilterDesc> filterDescs) {
+  public List<DonationEntity> getDonations(int limit, int offset, List<FilterDescription> filterDescs) {
     List<DonationEntity> result = applyFilter(filterDescs);
 
     if (offset > 0 && offset >= result.size())
@@ -38,21 +38,21 @@ public class DonationService {
     return result;
   }
 
-  public long getDonationsCount(List<FilterDesc> filterDescs) {
+  public long getDonationsCount(List<FilterDescription> filterDescs) {
     List<DonationEntity> result = applyFilter(filterDescs);
 
     return (long) result.size();
   }
 
-  private List<DonationEntity> applyFilter(List<FilterDesc> filterDescs) {
+  private List<DonationEntity> applyFilter(List<FilterDescription> filterDescs) {
     List<DonationEntity> result = new ArrayList<DonationEntity>();
 
     for (DonationEntity donationEntity : donationEntities) {
       boolean accepted = true;
 
       if (filterDescs != null) {
-        for (FilterDesc filterDesc : filterDescs) {
-          switch (filterDesc.getField().getName()) {
+        for (FilterDescription filterDesc : filterDescs) {
+          switch (filterDesc.getField()) {
             /*
             case "amount":
               if (!donationEntity.getAmount().equalsIgnoreCase((String) filterDesc.getValue()))

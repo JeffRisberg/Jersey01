@@ -1,6 +1,6 @@
 package com.company.jersey01.endpoints;
 
-import com.company.common.FilterDesc;
+import com.company.common.FilterDescription;
 import com.company.jersey01.models.DonorEntity;
 import com.company.jersey01.services.DonorService;
 
@@ -38,7 +38,7 @@ public class Donors extends AbstractEndpoint {
     @Context UriInfo uriInfo) {
 
     MultivaluedMap<String, String> queryParams = uriInfo.getQueryParameters();
-    List<FilterDesc> filterDescs = this.parseFiltering(queryParams);
+    List<FilterDescription> filterDescs = this.parseFiltering(queryParams);
 
     List<DonorEntity> data = donorService.getDonors(limit, offset, filterDescs);
     long totalCount = donorService.getDonorsCount(filterDescs);
