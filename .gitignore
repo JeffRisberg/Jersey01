@@ -28,7 +28,8 @@ out/
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
-gradlew.bat
+.idea/sonarlint/issuestore/index.pb
+.gradle
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -38,5 +39,3 @@ gradlew.bat
 .idea/*.iml
 .idea/modules
 
-### Gradle ###
-.gradle
