@@ -1,21 +1,19 @@
 /**
  *
  */
+
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+}
+
 repositories {
   mavenCentral()
 }
 
-buildscript {
-  repositories {
-    jcenter()
-  }
-  dependencies {
-    classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
-  }
-}
-
 apply plugin: 'java'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 version = '0.1.0'
 
@@ -24,9 +22,9 @@ ext {
   projectLombokVersion = '1.16.20'
   jodaTimeVersion = '2.10'
   guiceVersion = '4.2.3'
-  jettyVersion = '9.4.26.v20200117'
-  jerseyVersion = '2.28'
-  hk2Version = '2.5.0'
+  jettyVersion = '9.4.49.v20220914'
+  jerseyVersion = '2.37'
+  hk2Version = '2.6.1'
   jacksonVersion = '2.11.2'
   hibernateVersion = '5.4.33'
   junitVersion = '4.13.2'
@@ -49,6 +47,9 @@ dependencies {
   compile "com.google.inject:guice:$guiceVersion"
   compile "com.google.inject.extensions:guice-servlet:$guiceVersion"
 
+  compile group: 'com.google.inject', name: 'guice', version: guiceVersion
+  compile group: 'com.google.inject.extensions', name: 'guice-servlet', version: guiceVersion
+
   compile "org.eclipse.jetty:jetty-server:$jettyVersion"
   compile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
 
@@ -58,12 +59,12 @@ dependencies {
   compile "org.glassfish.jersey.inject:jersey-hk2:$jerseyVersion"
   compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
 
-  compile "org.glassfish.hk2:hk2:$hk2Version"
-  compile "org.glassfish.hk2:guice-bridge:$hk2Version"
+  compile group: 'com.squarespace.jersey2-guice', name: 'jersey2-guice-impl', version: '1.0.6'
+  compile group: 'org.glassfish.hk2', name: 'hk2', version: hk2Version
+  compile group: 'org.glassfish.hk2', name: 'guice-bridge', version: hk2Version
 
   compile "org.hibernate:hibernate-core:$hibernateVersion"
   compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final"
-  compile 'org.glassfish:javax.el:3.0.1-b09'
 
   compile "com.zaxxer:HikariCP:2.7.9"
   compile "mysql:mysql-connector-java:5.1.47"
