@@ -25,8 +25,16 @@ public class DonationEntity extends AbstractEntity {
 
   @ManyToOne()
   @JoinColumn(name = "charity_id")
-  protected CharityEntity charityEntity;
+  protected CharityEntity charity;
 
   @Column(name = "amount")
   protected float amount;
+
+  // The Lombok @AllArgsConstructor doesn't include superclass fields, so we need this
+  public DonationEntity(Long id, DonorEntity donor, CharityEntity charity, float amount) {
+    this.id = id;
+    this.donor = donor;
+    this.charity = charity;
+    this.amount = amount;
+  }
 }

@@ -9,7 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
 
-@Path("donationEntities")
+@Path("donations")
 public class Donations extends AbstractEndpoint {
 
   protected DonationService donationService;
