@@ -22,10 +22,10 @@ ext {
   projectLombokVersion = '1.16.20'
   jodaTimeVersion = '2.10'
   guiceVersion = '4.2.3'
-  jettyVersion = '9.4.49.v20220914'
+  jettyVersion = '9.4.57.v20241219'
   jerseyVersion = '2.47'
   hk2Version = '2.6.1'
-  jacksonVersion = '2.13.5'
+  jacksonVersion = '2.18.0'
   hibernateVersion = '5.4.33'
   junitVersion = '4.13.2'
 }
