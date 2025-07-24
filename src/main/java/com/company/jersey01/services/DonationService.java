@@ -17,70 +17,70 @@ import java.util.List;
 @Singleton
 public class DonationService {
 
-    CharityService charityService;
-    DonorService donorService;
+  CharityService charityService;
+  DonorService donorService;
 
-    protected List<DonationEntity> donations = new ArrayList<DonationEntity>();
+  protected List<DonationEntity> donations = new ArrayList<DonationEntity>();
 
-    @Inject
-    public DonationService(CharityService charityService, DonorService donorService) {
-        this.charityService = charityService;
-        this.donorService = donorService;
+  @Inject
+  public DonationService(CharityService charityService, DonorService donorService) {
+    this.charityService = charityService;
+    this.donorService = donorService;
 
-        CharityEntity charity = charityService.getCharity(1L);
-        DonorEntity donor = donorService.getDonor(1L);
+    CharityEntity charity = charityService.getCharity(1L);
+    DonorEntity donor = donorService.getDonor(1L);
 
-        donations.add(new DonationEntity(1L, donor, charity, 1000.0f));
+    donations.add(new DonationEntity(1L, donor, charity, 1000.0f));
+  }
+
+  public DonationEntity getDonation(long id) {
+    for (DonationEntity donationEntity : donations) {
+      if (donationEntity.getId() == id)
+        return donationEntity;
     }
+    return null;
+  }
 
-    public DonationEntity getDonation(long id) {
-        for (DonationEntity donationEntity : donations) {
-            if (donationEntity.getId() == id)
-                return donationEntity;
-        }
-        return null;
-    }
+  public List<DonationEntity> getDonations(int limit, int offset, List<FilterDescription> filterDescs) {
+    List<DonationEntity> result = applyFilter(filterDescs);
 
-    public List<DonationEntity> getDonations(int limit, int offset, List<FilterDescription> filterDescs) {
-        List<DonationEntity> result = applyFilter(filterDescs);
+    if (offset > 0 && offset >= result.size())
+      result = new ArrayList<DonationEntity>();
+    else if (offset > 0)
+      result = result.subList(offset, result.size());
 
-        if (offset > 0 && offset >= result.size())
-            result = new ArrayList<DonationEntity>();
-        else if (offset > 0)
-            result = result.subList(offset, result.size());
+    return result;
+  }
 
-        return result;
-    }
+  public long getDonationsCount(List<FilterDescription> filterDescs) {
+    List<DonationEntity> result = applyFilter(filterDescs);
 
-    public long getDonationsCount(List<FilterDescription> filterDescs) {
-        List<DonationEntity> result = applyFilter(filterDescs);
+    return (long) result.size();
+  }
 
-        return (long) result.size();
-    }
+  private List<DonationEntity> applyFilter(List<FilterDescription> filterDescs) {
+    List<DonationEntity> result = new ArrayList<DonationEntity>();
 
-    private List<DonationEntity> applyFilter(List<FilterDescription> filterDescs) {
-        List<DonationEntity> result = new ArrayList<DonationEntity>();
+    for (DonationEntity donation : donations) {
+      boolean accepted = true;
 
-        for (DonationEntity donation : donations) {
-            boolean accepted = true;
-
-            if (filterDescs != null) {
-                for (FilterDescription filterDesc : filterDescs) {
-                    switch (filterDesc.getField()) {
+      if (filterDescs != null) {
+        for (FilterDescription filterDesc : filterDescs) {
+          switch (filterDesc.getField()) {
             /*
             case "amount":
               if (!donationEntity.getAmount().equalsIgnoreCase((String) filterDesc.getValue()))
                 accepted = false;
               break;
               */
-                    }
-                }
-            }
-
-            if (accepted)
-                result.add(donation);
+          }
         }
+      }
 
-        return result;
+      if (accepted)
+        result.add(donation);
     }
+
+    return result;
+  }
 }
