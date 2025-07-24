@@ -23,7 +23,7 @@ ext {
   jodaTimeVersion = '2.10'
   guiceVersion = '4.2.3'
   jettyVersion = '9.4.49.v20220914'
-  jerseyVersion = '2.37'
+  jerseyVersion = '2.41'
   hk2Version = '2.6.1'
   jacksonVersion = '2.13.5'
   hibernateVersion = '5.4.33'
